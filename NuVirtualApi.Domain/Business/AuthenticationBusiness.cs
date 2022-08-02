@@ -21,13 +21,13 @@ namespace NuVirtualApi.Domain.Business
         public TokenModel ConnectUser(ConnectUserRequest request)
         {
             TokenModel result = null;
-            var existingTineos = _userManager.AuthenticateUser(request.Mail, request.Password);
-            if (existingTineos != null)
+            var existingUser = _userManager.AuthenticateUser(request.Mail, request.Password);
+            if (existingUser != null)
             {
                 result = new TokenModel
                 {
-                    Mail = existingTineos.Mail,
-                    Token = TokenTool.GenerateJwt(existingTineos, _jwtSettings.Value)
+                    Mail = existingUser.Email,
+                    Token = TokenTool.GenerateJwt(existingUser, _jwtSettings.Value)
                 };
             }
 

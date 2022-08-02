@@ -5,6 +5,13 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuVirtualApi", "NuVirtualApi\NuVirtualApi.csproj", "{2BFD1D37-7B92-4373-BBB4-8E076321BD78}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuVirtualApi.Database", "NuVirtualApi.Database\NuVirtualApi.Database.csproj", "{1F6EB4A0-5F1B-438A-92B9-383A1DF547FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuVirtualApi.Domain", "NuVirtualApi.Domain\NuVirtualApi.Domain.csproj", "{A1234839-4EDD-4F41-90CE-564421F0F44E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1F6EB4A0-5F1B-438A-92B9-383A1DF547FD} = {1F6EB4A0-5F1B-438A-92B9-383A1DF547FD}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +22,14 @@ Global
 		{2BFD1D37-7B92-4373-BBB4-8E076321BD78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BFD1D37-7B92-4373-BBB4-8E076321BD78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BFD1D37-7B92-4373-BBB4-8E076321BD78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F6EB4A0-5F1B-438A-92B9-383A1DF547FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F6EB4A0-5F1B-438A-92B9-383A1DF547FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F6EB4A0-5F1B-438A-92B9-383A1DF547FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F6EB4A0-5F1B-438A-92B9-383A1DF547FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1234839-4EDD-4F41-90CE-564421F0F44E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1234839-4EDD-4F41-90CE-564421F0F44E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1234839-4EDD-4F41-90CE-564421F0F44E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1234839-4EDD-4F41-90CE-564421F0F44E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

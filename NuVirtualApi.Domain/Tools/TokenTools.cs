@@ -14,8 +14,7 @@ namespace NuVirtualApi.Domain.Tools
             var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
-            new Claim(ClaimTypes.Role, user.JobFunction)
+            new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}")
         };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret));

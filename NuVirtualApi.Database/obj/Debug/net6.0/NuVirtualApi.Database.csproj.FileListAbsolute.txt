@@ -1,0 +1,14 @@
+C:\projets\NuVirtualApi\NuVirtualApi.Database\bin\Debug\net6.0\NuVirtualApi.Database.deps.json
+C:\projets\NuVirtualApi\NuVirtualApi.Database\bin\Debug\net6.0\NuVirtualApi.Database.runtimeconfig.json
+C:\projets\NuVirtualApi\NuVirtualApi.Database\bin\Debug\net6.0\NuVirtualApi.Database.dll
+C:\projets\NuVirtualApi\NuVirtualApi.Database\bin\Debug\net6.0\NuVirtualApi.Database.pdb
+C:\projets\NuVirtualApi\NuVirtualApi.Database\obj\Debug\net6.0\NuVirtualApi.Database.csproj.AssemblyReference.cache
+C:\projets\NuVirtualApi\NuVirtualApi.Database\obj\Debug\net6.0\NuVirtualApi.Database.GeneratedMSBuildEditorConfig.editorconfig
+C:\projets\NuVirtualApi\NuVirtualApi.Database\obj\Debug\net6.0\NuVirtualApi.Database.AssemblyInfoInputs.cache
+C:\projets\NuVirtualApi\NuVirtualApi.Database\obj\Debug\net6.0\NuVirtualApi.Database.AssemblyInfo.cs
+C:\projets\NuVirtualApi\NuVirtualApi.Database\obj\Debug\net6.0\NuVirtualApi.Database.csproj.CoreCompileInputs.cache
+C:\projets\NuVirtualApi\NuVirtualApi.Database\obj\Debug\net6.0\NuVirtualApi.Database.dll
+C:\projets\NuVirtualApi\NuVirtualApi.Database\obj\Debug\net6.0\refint\NuVirtualApi.Database.dll
+C:\projets\NuVirtualApi\NuVirtualApi.Database\obj\Debug\net6.0\NuVirtualApi.Database.pdb
+C:\projets\NuVirtualApi\NuVirtualApi.Database\obj\Debug\net6.0\NuVirtualApi.Database.genruntimeconfig.cache
+C:\projets\NuVirtualApi\NuVirtualApi.Database\obj\Debug\net6.0\ref\NuVirtualApi.Database.dll

@@ -13,10 +13,11 @@ namespace NuVirtualApi.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-                    .HasKey(s => new { s.Id });
+                    .HasKey(u => new { u.Id });
 
             var familleA = new User
             {
+                Id = 1,
                 Birthday = new DateTime(1994, 07, 31),
                 Email = "koalaviril@gmail.com",
                 FirstName = "Nicolas",
@@ -24,7 +25,7 @@ namespace NuVirtualApi.Database
                 Height = 168,
                 Weight = 76.1,
                 Pseudo = "koalaviril",
-                Password = "NuVirtualApi"
+                Password = "NuVirtualApi@01"
             };
 
             modelBuilder.Entity<User>().HasData(familleA);

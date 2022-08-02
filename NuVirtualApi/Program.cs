@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using NuVirtualApi.Domain.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,19 +19,12 @@ builder.Services.AddSwaggerGen();
 
 //Database dependency injections
 builder.Services.AddDbContext<DatabaseContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("ApiTestCnxStr")));
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("NuVirtualApiCnxStr")));
 
 //Others dependency injections
+builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<IAuthenticationBusiness, AuthenticationBusiness>();
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 //configuration de l'authentification et du format de token
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
@@ -53,6 +47,15 @@ builder.Services.AddAuthentication(options =>
         ClockSkew = TimeSpan.Zero
     };
 });
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseAuthentication();
 
