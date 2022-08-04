@@ -22,8 +22,8 @@ builder.Services.AddDbContext<DatabaseContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("NuVirtualApiCnxStr")));
 
 //Others dependency injections
-builder.Services.AddScoped<IUserManager, UserManager>();
-builder.Services.AddScoped<IAuthenticationBusiness, AuthenticationBusiness>();
+builder.Services.AddScoped<IUserBusiness, UserBusiness>();
+//builder.Services.AddScoped<IAuthenticationBusiness, AuthenticationBusiness>();
 
 
 //configuration de l'authentification et du format de token
