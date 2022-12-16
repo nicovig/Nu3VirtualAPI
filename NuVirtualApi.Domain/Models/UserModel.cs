@@ -11,5 +11,7 @@
         public double Weight { get; set; } //kg
         public string Email { get; set; }
         public string Password { get; set; }
+
     }
+
 }

@@ -1,6 +1,6 @@
 ﻿using NuVirtualApi.Domain.Interfaces.Business;
+using NuVirtualApi.Domain.Models.Request;
 using Microsoft.AspNetCore.Mvc;
-using NuVirtualApi.Domain.Models.Request.Authentication;
 
 [ApiController]
 [Route("[controller]")]
