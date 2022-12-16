@@ -366,3 +366,5 @@ NuVirtualApi/obj
 NuVirtualApi.Database/obj
 NuVirtualApi/bin
 .vs
+NuVirtualApi.Database/bin
+NuVirtualApi.Domain/bin
