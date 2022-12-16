@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+NuVirtualApi.Domain/obj
+NuVirtualApi/obj
+NuVirtualApi.Database/obj
+NuVirtualApi/bin
+.vs
