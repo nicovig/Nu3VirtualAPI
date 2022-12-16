@@ -8,27 +8,14 @@ namespace NuVirtualApi.Database
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         { }
 
+        public DbSet<Meal> Meals { get; set; }
+        public DbSet<NutritionGoal> NutritionGoals { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Workout> Workouts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                    .HasKey(u => new { u.Id });
-
-            var familleA = new User
-            {
-                Id = 1,
-                Birthday = new DateTime(1994, 07, 31),
-                Email = "koalaviril@gmail.com",
-                FirstName = "Nicolas",
-                LastName = "Vigouroux",
-                Height = 168,
-                Weight = 76.1,
-                Pseudo = "koalaviril",
-                Password = "NuVirtualApi@01"
-            };
-
-            modelBuilder.Entity<User>().HasData(familleA);
+            modelBuilder.Entity<User>().HasKey(u => new { u.Id });
         }
     }
 }
