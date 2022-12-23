@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NuVirtualApi.Domain.Models.Request
+namespace NuVirtualApi.Domain.Models.Request.Authentication
 {
     public class ConnectUserRequest
     {

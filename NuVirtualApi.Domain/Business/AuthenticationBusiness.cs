@@ -1,9 +1,9 @@
 ﻿using NuVirtualApi.Domain.Interfaces.Business;
 using NuVirtualApi.Domain.Models;
 using NuVirtualApi.Domain.Models.Config;
-using NuVirtualApi.Domain.Models.Request;
 using NuVirtualApi.Domain.Tools;
 using Microsoft.Extensions.Options;
+using NuVirtualApi.Domain.Models.Request.Authentication;
 
 namespace NuVirtualApi.Domain.Business
 {

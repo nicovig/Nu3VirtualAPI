@@ -14,4 +14,11 @@
 		<ProjectReference Include="..\NuVirtualApi.Database\NuVirtualApi.Database.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Models\Request\Monitoring\" />
+	  <Folder Include="Models\Request\Meal\" />
+	  <Folder Include="Models\Request\Workout\" />
+	  <Folder Include="Models\Request\User\" />
+	</ItemGroup>
+
 </Project>

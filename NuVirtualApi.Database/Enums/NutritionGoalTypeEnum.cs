@@ -1,6 +1,6 @@
 ﻿namespace NuVirtualApi.Database.Enums
 {
-    public enum NutritionGoalTypeEnum
+    public enum MacronutrientTypeEnum
     {
         Carbohydratre,
         Lipid,

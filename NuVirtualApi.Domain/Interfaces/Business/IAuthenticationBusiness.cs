@@ -1,5 +1,5 @@
 ﻿using NuVirtualApi.Domain.Models;
-using NuVirtualApi.Domain.Models.Request;
+using NuVirtualApi.Domain.Models.Request.Authentication;
 
 namespace NuVirtualApi.Domain.Interfaces.Business
 {
