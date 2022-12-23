@@ -84,5 +84,28 @@ namespace NuVirtualApi.Domain.Managers
                 User = userToResponse
             };
         }
+
+        public bool UpdateUser(UpdateUserRequest request)
+        {
+
+            User updatedUser = new User()
+            {
+                Pseudo = request.User.Pseudo,
+                FirstName = request.User.FirstName,
+                LastName = request.User.LastName,
+                Gender = request.User.Gender,
+                Birthday = request.User.Birthday,
+                Height = request.User.Height,
+                Weight = request.User.Weight,
+                Email = request.User.Email,
+                Password = PasswordTool.HashPassword(request.User.Password),
+                IsAdmin = false
+            };
+
+            _databaseContext.Update(updatedUser);
+            int updatedUsersLength = _databaseContext.SaveChanges();
+
+            return updatedUsersLength == 1 ? true : false;            
+        }
     }
 }

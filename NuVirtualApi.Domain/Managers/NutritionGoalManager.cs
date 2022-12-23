@@ -3,9 +3,8 @@ using NuVirtualApi.Database.EntityModels;
 using NuVirtualApi.Database.Enums;
 using NuVirtualApi.Domain.Interfaces.Managers;
 using NuVirtualApi.Domain.Models.Request.NutritionGoal;
+using NuVirtualApi.Domain.Models.Response.Meal;
 using NuVirtualApi.Domain.Models.Response.NutritionGoal;
-using System;
-using System.Collections.Generic;
 namespace NuVirtualApi.Domain.Managers
 {
 
@@ -66,7 +65,7 @@ namespace NuVirtualApi.Domain.Managers
             return true;
         }
 
-        public List<NutritionGoalViewModel> GetAllNutritionGoalsByUserIdAndDate(GetAllNutritionGoalsByUserIdAndDateRequest request, List<Meal> mealsByDate)
+        public List<NutritionGoalViewModel> GetAllNutritionGoalsByUserIdAndDate(GetAllNutritionGoalsByUserIdAndDateRequest request, List<MealViewModel> mealsByDate)
         {
             var nutritionGoalsDb = _databaseContext.NutritionGoals.Where(n => n.User.Id == request.UserId).ToList();
 

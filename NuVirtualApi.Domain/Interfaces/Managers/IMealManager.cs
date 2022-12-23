@@ -1,9 +1,9 @@
 ﻿using NuVirtualApi.Domain.Models.Request.Meal;
 using NuVirtualApi.Domain.Models.Response.Meal;
 
-namespace NuVirtualApi.Domain.Interfaces.Business
+namespace NuVirtualApi.Domain.Interfaces.Manager
 {
-    public interface IMealBusiness
+    public interface IMealManager
     {
         bool CreateMeal(CreateMealRequest request);
         bool DeleteMeal(int mealId);

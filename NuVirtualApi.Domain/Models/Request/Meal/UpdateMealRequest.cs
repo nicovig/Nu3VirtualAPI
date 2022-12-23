@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NuVirtualApi.Domain.Models.Request.Meal
 {
-    public class CreateMealRequest
-    {
+	public class UpdateMealRequest
+	{
 		[Required]
 		public string Name { get; set; }
 		[Required]
