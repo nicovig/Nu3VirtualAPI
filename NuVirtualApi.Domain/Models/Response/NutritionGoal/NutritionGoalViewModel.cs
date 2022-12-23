@@ -1,6 +1,6 @@
 ﻿using NuVirtualApi.Database.Enums;
 
-namespace NuVirtualApi.Domain.Models.View
+namespace NuVirtualApi.Domain.Models.Response.NutritionGoal
 {
     public class NutritionGoalViewModel
     {

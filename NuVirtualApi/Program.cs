@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using NuVirtualApi.Domain.Managers;
+using NuVirtualApi.Domain.Interfaces.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +23,14 @@ builder.Services.AddDbContext<DatabaseContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("NuVirtualApiCnxStr")));
 
 //Others dependency injections
-builder.Services.AddScoped<IUserManager, UserManager>();
+//builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<IAuthenticationBusiness, AuthenticationBusiness>();
+
+builder.Services.AddScoped<INutritionGoalManager, NutritionGoalManager>();
+builder.Services.AddScoped<INutritionGoalBusiness, NutritionGoalBusiness>();
+
+builder.Services.AddScoped<IUserManager, UserManager>();
+builder.Services.AddScoped<IUserBusiness, UserBusiness>();
 
 
 //configuration de l'authentification et du format de token

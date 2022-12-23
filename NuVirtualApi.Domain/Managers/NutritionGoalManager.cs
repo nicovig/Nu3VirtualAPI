@@ -1,8 +1,9 @@
 ﻿using NuVirtualApi.Database;
+using NuVirtualApi.Database.EntityModels;
 using NuVirtualApi.Database.Enums;
 using NuVirtualApi.Domain.Interfaces.Managers;
 using NuVirtualApi.Domain.Models.Request.NutritionGoal;
-using NuVirtualApi.Domain.Models.View;
+using NuVirtualApi.Domain.Models.Response.NutritionGoal;
 using System;
 using System.Collections.Generic;
 namespace NuVirtualApi.Domain.Managers
@@ -16,17 +17,65 @@ namespace NuVirtualApi.Domain.Managers
         {
             _databaseContext = databaseContext;
         }
-        public List<NutritionGoalViewModel> GetAllNutritionGoalsByUserIdAndDate(GetAllNutritionGoalsByUserIdAndDateRequest request)
+
+        public bool CreateDefaultNutritionGoals(CreateDefaultNutritionGoalsRequest request)
+        {
+            User userDb = _databaseContext.Users.Where(u => u.Id == request.UserId).FirstOrDefault();
+
+            if (userDb == null) return false;
+
+            List<NutritionGoal> newNutritionGoals = new List<NutritionGoal>()
+            {
+                new NutritionGoal()
+                {
+                    Name = "Glucides",
+                    Order = 1,
+                    Type = MacronutrientTypeEnum.Carbohydratre,
+                    TotalValue = request.Gender == GenderEnum.Male ? 300 : 220,
+                    User = userDb
+                },
+                new NutritionGoal()
+                {
+                    Name = "Lipides",
+                    Order = 2,
+                    Type = MacronutrientTypeEnum.Lipid,
+                    TotalValue = request.Gender == GenderEnum.Male ? 100 : 60,
+                    User = userDb
+                },
+                new NutritionGoal()
+                {
+                    Name = "Protéines",
+                    Order = 3,
+                    Type = MacronutrientTypeEnum.Protein,
+                    TotalValue = request.Gender == GenderEnum.Male ? 130 : 80,
+                    User = userDb
+                },
+                new NutritionGoal()
+                {
+                    Name = "Calories",
+                    Order = 4,
+                    Type = MacronutrientTypeEnum.Calorie,
+                    TotalValue = request.Gender == GenderEnum.Male ? 2000 : 1700,
+                    User = userDb
+                },
+            };
+
+            _databaseContext.NutritionGoals.AddRange(newNutritionGoals);
+            _databaseContext.SaveChanges();
+
+            return true;
+        }
+
+        public List<NutritionGoalViewModel> GetAllNutritionGoalsByUserIdAndDate(GetAllNutritionGoalsByUserIdAndDateRequest request, List<Meal> mealsByDate)
         {
             var nutritionGoalsDb = _databaseContext.NutritionGoals.Where(n => n.User.Id == request.UserId).ToList();
-            var mealsDb = _databaseContext.Meals.Where(m => m.User.Id == request.UserId && m.Date == request.Date).ToList();
 
             int allCarbohydratesByDay = 0;
             int allLipidsByDay = 0;
             int allProteinsByDay = 0;
             int allCaloriesByDay = 0;
 
-            mealsDb.ForEach(m =>
+            mealsByDate.ForEach(m =>
             {
                 allCarbohydratesByDay += m.Carbohydrate;
                 allLipidsByDay += m.Lipid;
