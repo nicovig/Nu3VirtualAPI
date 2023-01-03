@@ -368,3 +368,4 @@ NuVirtualApi/bin
 .vs
 NuVirtualApi.Database/bin
 NuVirtualApi.Domain/bin
+NuVirtualApi.Domain/NuVirtualApi.Domain.csproj

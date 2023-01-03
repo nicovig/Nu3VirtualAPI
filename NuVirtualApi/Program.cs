@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using NuVirtualApi.Domain.Managers;
 using NuVirtualApi.Domain.Interfaces.Managers;
+using NuVirtualApi.Domain.Interfaces.Manager;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,8 +24,10 @@ builder.Services.AddDbContext<DatabaseContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("NuVirtualApiCnxStr")));
 
 //Others dependency injections
-//builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<IAuthenticationBusiness, AuthenticationBusiness>();
+
+builder.Services.AddScoped<IMealManager, MealManager>();
+builder.Services.AddScoped<IMealBusiness, MealBusiness>();
 
 builder.Services.AddScoped<INutritionGoalManager, NutritionGoalManager>();
 builder.Services.AddScoped<INutritionGoalBusiness, NutritionGoalBusiness>();

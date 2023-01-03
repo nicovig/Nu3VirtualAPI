@@ -23,7 +23,7 @@ namespace NuVirtualApi.Domain.Managers
         public UserModel AuthenticateUser(string email, string password)
         {
             UserModel result = null;
-            var userDb = _databaseContext.Users.Where(t => t.Email == email).FirstOrDefault();
+            User userDb = _databaseContext.Users.Where(u => u.Email == email).FirstOrDefault();
 
             if (userDb != null && userDb.Password == PasswordTool.HashPassword(password))
             {
@@ -87,25 +87,29 @@ namespace NuVirtualApi.Domain.Managers
 
         public bool UpdateUser(UpdateUserRequest request)
         {
+            User user = _databaseContext.Users.Where(u => u.Id == request.Id).FirstOrDefault();
 
-            User updatedUser = new User()
+            if (user == null) return false;
+
+            user = new User()
             {
-                Pseudo = request.User.Pseudo,
-                FirstName = request.User.FirstName,
-                LastName = request.User.LastName,
-                Gender = request.User.Gender,
-                Birthday = request.User.Birthday,
-                Height = request.User.Height,
-                Weight = request.User.Weight,
-                Email = request.User.Email,
-                Password = PasswordTool.HashPassword(request.User.Password),
-                IsAdmin = false
+                Id = request.Id,
+                Pseudo = request.Pseudo,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Gender = request.Gender,
+                Birthday = request.Birthday,
+                Height = request.Height,
+                Weight = request.Weight,
+                Email = request.Email,
+                Password = user.Password,
+                IsAdmin = user.IsAdmin
             };
 
-            _databaseContext.Update(updatedUser);
-            int updatedUsersLength = _databaseContext.SaveChanges();
+            _databaseContext.Update(user);
+            _databaseContext.SaveChanges();
 
-            return updatedUsersLength == 1 ? true : false;            
+            return true;
         }
     }
 }

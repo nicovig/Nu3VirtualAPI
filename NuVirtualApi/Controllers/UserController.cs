@@ -15,7 +15,7 @@ public class UserController : Controller
         _userBusiness = userBusiness;
     }
 
-    [HttpPut]
+    [HttpPost]
     public ActionResult<CreateUserResponse> CreateUser([FromBody] CreateUserRequest request, [FromHeader] string password)
     {
         return _userBusiness.CreateUser(new CreateUserRequest()
@@ -33,5 +33,11 @@ public class UserController : Controller
              Password   = password
             }
         });
+    }
+
+    [HttpPut]
+    public ActionResult<bool> UpdateUser([FromBody] UpdateUserRequest request)
+    {
+        return _userBusiness.UpdateUser(request);
     }
 }
