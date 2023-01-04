@@ -7,7 +7,6 @@ using NuVirtualApi.Domain.Models.Response.Meal;
 using NuVirtualApi.Domain.Models.Response.NutritionGoal;
 namespace NuVirtualApi.Domain.Managers
 {
-
     public class NutritionGoalManager : INutritionGoalManager
     {
         private readonly DatabaseContext _databaseContext;
