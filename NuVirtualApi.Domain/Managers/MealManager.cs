@@ -39,7 +39,7 @@ namespace NuVirtualApi.Domain.Managers
             };
 
             _databaseContext.Meals.Add(newMeal);
-            int createdEntities = _databaseContext.SaveChanges();
+            _databaseContext.SaveChanges();
 
             return true;
         }

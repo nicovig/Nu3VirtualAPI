@@ -16,22 +16,22 @@ namespace NuVirtualApi.Domain.Business
 
         public bool CreateMeal(CreateMealRequest request)
         {
-            throw new NotImplementedException();
+            return _mealManager.CreateMeal(request);
         }
 
         public bool DeleteMeal(int mealId)
         {
-            throw new NotImplementedException();
+            return _mealManager.DeleteMeal(mealId);
         }
 
         public List<MealViewModel> GetAllMealsByUserIdAndDate(GetAllMealsByUserIdAndDateRequest request)
         {
-            throw new NotImplementedException();
+            return _mealManager.GetAllMealsByUserIdAndDate(request);
         }
 
         public bool UpdateMeal(UpdateMealRequest request)
         {
-            throw new NotImplementedException();
+            return _mealManager.UpdateMeal(request);
         }
     }
 }

@@ -35,6 +35,9 @@ builder.Services.AddScoped<INutritionGoalBusiness, NutritionGoalBusiness>();
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<IUserBusiness, UserBusiness>();
 
+builder.Services.AddScoped<IWorkoutManager, WorkoutManager>();
+builder.Services.AddScoped<IWorkoutBusiness, WorkoutBusiness>();
+
 
 //configuration de l'authentification et du format de token
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();

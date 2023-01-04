@@ -39,6 +39,5 @@ namespace NuVirtualApi.Domain.Business
         {
             return _userManager.UpdateUser(request);
         }
-        
     }
 }
