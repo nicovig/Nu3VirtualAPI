@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NuVirtualApi.Domain.Interfaces.Business;
-using NuVirtualApi.Domain.Models;
 using NuVirtualApi.Domain.Models.Request.User;
 using NuVirtualApi.Domain.Models.Response.User;
 
@@ -18,21 +17,7 @@ public class UserController : Controller
     [HttpPost]
     public ActionResult<CreateUserResponse> CreateUser([FromBody] CreateUserRequest request, [FromHeader] string password)
     {
-        return _userBusiness.CreateUser(new CreateUserRequest()
-        {
-            User = new UserModel()
-            {
-             Pseudo     = request.User.Pseudo,
-             FirstName  = request.User.FirstName,
-             LastName   = request.User.LastName,
-             Gender     = request.User.Gender,
-             Birthday   = request.User.Birthday,
-             Height     = request.User.Height,
-             Weight     = request.User.Weight,
-             Email      = request.User.Email,
-             Password   = password
-            }
-        });
+        return _userBusiness.CreateUser(request);
     }
 
     [HttpPut]

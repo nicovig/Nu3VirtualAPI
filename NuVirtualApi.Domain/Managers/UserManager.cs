@@ -48,20 +48,20 @@ namespace NuVirtualApi.Domain.Managers
         {
             User newUser = new User() 
             {
-                Pseudo = request.User.Pseudo,
-                FirstName = request.User.FirstName,
-                LastName = request.User.LastName,
-                Gender = request.User.Gender,
-                Birthday = request.User.Birthday,
-                Height = request.User.Height,
-                Weight = request.User.Weight,
-                Email = request.User.Email,
-                Password = PasswordTool.HashPassword(request.User.Password),
+                Pseudo = request.Pseudo,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Gender = request.Gender,
+                Birthday = request.Birthday,
+                Height = request.Height,
+                Weight = request.Weight,
+                Email = request.Email,
+                Password = PasswordTool.HashPassword(request.Password),
                 IsAdmin = false
             };
 
             _databaseContext.Users.Add(newUser);
-            _databaseContext.SaveChanges();
+            int test = _databaseContext.SaveChanges();
 
             UserModel userToResponse = new UserModel()
             {
