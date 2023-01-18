@@ -117,7 +117,7 @@ namespace NuVirtualApi.Domain.Managers
             User user = _databaseContext.Users.Where(u => u.Id == request.UserId).FirstOrDefault();
             Meal meal = _databaseContext.Meals.Where(m => m.Id == request.Id).FirstOrDefault();
 
-            if (mealUser == null || meal == null)
+            if (user == null || meal == null)
             {
                 return false;
             }
