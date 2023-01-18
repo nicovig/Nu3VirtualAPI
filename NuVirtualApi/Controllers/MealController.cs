@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NuVirtualApi.Domain.Interfaces.Business;
 using NuVirtualApi.Domain.Models.Request.Meal;
-using NuVirtualApi.Domain.Models.Request.NutritionGoal;
 using NuVirtualApi.Domain.Models.Response.Meal;
 
 [ApiController]
@@ -37,6 +36,12 @@ public class MealController : Controller
         };
 
         return _mealBusiness.GetAllMealsByUserIdAndDate(request);
+    }
+
+    [HttpGet("id")]
+    public ActionResult<MealViewModel> GetMealByMealId([FromRoute] int mealId)
+    {
+        return _mealBusiness.GetMealByMealId(mealId);
     }
 
     [HttpPut]

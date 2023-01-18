@@ -20,25 +20,39 @@ namespace NuVirtualApi.Domain.Managers
             _jwtSettings = jwtSettings;
         }
 
-        public UserModel AuthenticateUser(string email, string password)
+        public UserModel AuthenticateUser(string login, string password)
         {
             UserModel result = null;
-            User userDb = _databaseContext.Users.Where(u => u.Email == email).FirstOrDefault();
 
-            if (userDb != null && userDb.Password == PasswordTool.HashPassword(password))
+            User userDbEmail = _databaseContext.Users.Where(u => u.Email == login).FirstOrDefault();
+            User userDbPseudo = _databaseContext.Users.Where(u => u.Pseudo == login).FirstOrDefault();
+
+            User foundUser = null;
+
+            if (userDbEmail != null)
+            {
+                foundUser = userDbEmail;
+            }
+
+            if (userDbPseudo != null)
+            {
+                foundUser = userDbPseudo;
+            }
+
+            if (foundUser.Password == PasswordTool.HashPassword(password))
             {
                 result = new UserModel
                 {
-                    Id = userDb.Id,
-                    FirstName = userDb.FirstName,
-                    LastName = userDb.LastName,
-                    Gender = userDb.Gender,
-                    Birthday = userDb.Birthday,
-                    Height = userDb.Height,
-                    Weight = userDb.Weight,
-                    Pseudo = userDb.Pseudo,
-                    Email = userDb.Email,
-                    IsAdmin = userDb.IsAdmin
+                    Id = foundUser.Id,
+                    FirstName = foundUser.FirstName,
+                    LastName = foundUser.LastName,
+                    Gender = foundUser.Gender,
+                    Birthday = foundUser.Birthday,
+                    Height = foundUser.Height,
+                    Weight = foundUser.Weight,
+                    Pseudo = foundUser.Pseudo,
+                    Email = foundUser.Email,
+                    IsAdmin = foundUser.IsAdmin
                 };
             }
             return result;

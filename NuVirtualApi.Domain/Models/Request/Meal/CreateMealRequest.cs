@@ -5,6 +5,7 @@ namespace NuVirtualApi.Domain.Models.Request.Meal
 {
     public class CreateMealRequest
     {
+		public int Id { get; set; }
 		[Required]
 		public string Name { get; set; }
 		[Required]

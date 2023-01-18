@@ -18,20 +18,18 @@ namespace NuVirtualApi.Domain.Business
             _jwtSettings = jwtSettings;
         }
 
-        public TokenModel ConnectUser(ConnectUserRequest request)
+        public TokenModel? ConnectUser(ConnectUserRequest request)
         {
-            TokenModel result = null;
-            var existingUser = _userManager.AuthenticateUser(request.Mail, request.Password);
+            var existingUser = _userManager.AuthenticateUser(request.Login, request.Password);
             if (existingUser != null)
             {
-                result = new TokenModel
+                return new TokenModel
                 {
-                    Mail = existingUser.Email,
+                    User = existingUser,
                     Token = TokenTool.GenerateJwt(existingUser, _jwtSettings.Value)
                 };
             }
-
-            return result;
+            return null;
         }
     }
 }

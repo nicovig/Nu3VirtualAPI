@@ -29,6 +29,9 @@ builder.Services.AddScoped<IAuthenticationBusiness, AuthenticationBusiness>();
 builder.Services.AddScoped<IMealManager, MealManager>();
 builder.Services.AddScoped<IMealBusiness, MealBusiness>();
 
+builder.Services.AddScoped<IMonitoringManager, MonitoringManager>();
+builder.Services.AddScoped<IMonitoringBusiness, MonitoringBusiness>();
+
 builder.Services.AddScoped<INutritionGoalManager, NutritionGoalManager>();
 builder.Services.AddScoped<INutritionGoalBusiness, NutritionGoalBusiness>();
 

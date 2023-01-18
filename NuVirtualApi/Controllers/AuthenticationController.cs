@@ -14,11 +14,11 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult Login([FromHeader] string mail, [FromHeader] string password)
+    public ActionResult Login([FromHeader] string login, [FromHeader] string password)
     {
         var token = _authenticationBusiness.ConnectUser(new ConnectUserRequest()
         {
-            Mail = mail,
+            Login = login,
             Password = password
         }); ;
         return token != null ? Ok(token) : BadRequest("Invalid credentials");

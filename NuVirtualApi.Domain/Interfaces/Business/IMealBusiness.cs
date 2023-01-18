@@ -8,6 +8,7 @@ namespace NuVirtualApi.Domain.Interfaces.Business
         bool CreateMeal(CreateMealRequest request);
         bool DeleteMeal(int mealId);
         List<MealViewModel> GetAllMealsByUserIdAndDate(GetAllMealsByUserIdAndDateRequest request);
+        MealViewModel GetMealByMealId(int mealId);
         bool UpdateMeal(UpdateMealRequest request);
     }
 }

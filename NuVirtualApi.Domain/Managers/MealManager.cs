@@ -74,7 +74,7 @@ namespace NuVirtualApi.Domain.Managers
                     Id = meal.Id,
                     Name = meal.Name,
                     Type = meal.Type,
-                    IsFavorite = meal.IsFavorite,                   
+                    IsFavorite = meal.IsFavorite,
                     Date = meal.Date,
                     Carbohydrate = meal.Carbohydrate,
                     Lipid = meal.Lipid,
@@ -88,9 +88,33 @@ namespace NuVirtualApi.Domain.Managers
             return mealViewModels;
         }
 
+        public MealViewModel GetMealByMealId(int mealId)
+        {
+            Meal meal = _databaseContext.Meals.Where(m => m.Id == mealId).FirstOrDefault();
+
+            if (meal != null) {
+                return new MealViewModel()
+                {
+                    Id = meal.Id,
+                    Name = meal.Name,
+                    Type = meal.Type,
+                    IsFavorite = meal.IsFavorite,
+                    Date = meal.Date,
+                    Carbohydrate = meal.Carbohydrate,
+                    Lipid = meal.Lipid,
+                    Protein = meal.Protein,
+                    Calorie = meal.Calorie,
+                    Notes = meal.Notes,
+                    UserId = meal.User.Id
+                };
+            } 
+
+            return null;
+        }
+
         public bool UpdateMeal(UpdateMealRequest request)
         {
-            User mealUser = _databaseContext.Users.Where(u => u.Id == request.UserId).FirstOrDefault();
+            User user = _databaseContext.Users.Where(u => u.Id == request.UserId).FirstOrDefault();
             Meal meal = _databaseContext.Meals.Where(m => m.Id == request.Id).FirstOrDefault();
 
             if (mealUser == null || meal == null)
@@ -110,7 +134,7 @@ namespace NuVirtualApi.Domain.Managers
                 Protein = request.Protein,
                 Calorie = request.Calorie,
                 Notes = request.Notes,
-                User = mealUser
+                User = user
             };
 
             _databaseContext.Meals.Update(meal);

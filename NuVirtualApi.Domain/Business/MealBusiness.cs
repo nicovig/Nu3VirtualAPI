@@ -29,6 +29,11 @@ namespace NuVirtualApi.Domain.Business
             return _mealManager.GetAllMealsByUserIdAndDate(request);
         }
 
+        public MealViewModel GetMealByMealId(int mealId)
+        {
+            return _mealManager.GetMealByMealId(mealId);
+        }
+
         public bool UpdateMeal(UpdateMealRequest request)
         {
             return _mealManager.UpdateMeal(request);

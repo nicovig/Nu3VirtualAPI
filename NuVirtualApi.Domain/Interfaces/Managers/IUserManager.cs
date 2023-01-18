@@ -4,7 +4,7 @@ using NuVirtualApi.Domain.Models.Response.User;
 
 public interface IUserManager
 {
-    UserModel AuthenticateUser(string mail, string password);
+    UserModel AuthenticateUser(string login, string password);
     CreateUserResponse CreateUser(CreateUserRequest request);
     bool UpdateUser(UpdateUserRequest request);
 }

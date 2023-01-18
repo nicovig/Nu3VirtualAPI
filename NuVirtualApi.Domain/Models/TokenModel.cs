@@ -2,8 +2,7 @@
 {
     public class TokenModel
     {
-        public string Mail { get; set; }
-
-        public string Token { get; set; }
+        public UserModel User { get; set; }
+        public string Token { get; set; }        
     }
 }
