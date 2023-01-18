@@ -8,6 +8,7 @@ namespace NuVirtualApi.Domain.Interfaces.Business
         bool CreateWorkout(CreateWorkoutRequest request);
         bool DeleteWorkout(int workoutId);
         List<WorkoutViewModel> GetAllWorkoutsByUserIdAndDate(GetAllWorkoutsByUserIdAndDateRequest request);
+        WorkoutViewModel GetWorkoutByWorkoutId(int workoutId);
         bool UpdateWorkout(UpdateWorkoutRequest request);
     }
 }

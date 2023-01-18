@@ -42,7 +42,7 @@ namespace NuVirtualApi.Domain.Managers
 
         public bool DeleteWorkout(int workoutId)
         {
-            Workout workout = _databaseContext.Workouts.Where(m => m.Id == workoutId).FirstOrDefault();
+            Workout workout = _databaseContext.Workouts.Where(w => w.Id == workoutId).FirstOrDefault();
 
             if (workout == null)
             {
@@ -56,10 +56,10 @@ namespace NuVirtualApi.Domain.Managers
 
         public List<WorkoutViewModel> GetAllWorkoutsByUserIdAndDate(GetAllWorkoutsByUserIdAndDateRequest request)
         {
-            List<Workout> workouts = _databaseContext.Workouts.Where(m => m.User.Id == request.UserId
-                                                              && m.Date.Day == request.Date.Day
-                                                              && m.Date.Month == request.Date.Month
-                                                              && m.Date.Year == request.Date.Year).ToList();
+            List<Workout> workouts = _databaseContext.Workouts.Where(w => w.User.Id == request.UserId
+                                                              && w.Date.Day == request.Date.Day
+                                                              && w.Date.Month == request.Date.Month
+                                                              && w.Date.Year == request.Date.Year).ToList();
 
             List<WorkoutViewModel> workoutViewModels = new List<WorkoutViewModel>();
 
@@ -80,10 +80,31 @@ namespace NuVirtualApi.Domain.Managers
             return workoutViewModels;
         }
 
+        public WorkoutViewModel GetWorkoutByWorkoutId(int workoutId)
+        {
+            Workout workout = _databaseContext.Workouts.Where(w => w.Id == workoutId).FirstOrDefault();
+
+            if (workout != null)
+            {
+                return new WorkoutViewModel()
+                {
+                    Id = workout.Id,
+                    Name = workout.Name,
+                    Date = workout.Date,
+                    TimeInSeconds = workout.TimeInSeconds,
+                    CaloriesBurned = workout.CaloriesBurned,
+                    Notes = workout.Notes,
+                    UserId = workout.User.Id
+                };
+            }            
+
+            return null;
+        }
+
         public bool UpdateWorkout(UpdateWorkoutRequest request)
         {
             User workoutUser = _databaseContext.Users.Where(u => u.Id == request.UserId).FirstOrDefault();
-            Workout workout = _databaseContext.Workouts.Where(m => m.Id == request.Id).FirstOrDefault();
+            Workout workout = _databaseContext.Workouts.Where(w => w.Id == request.Id).FirstOrDefault();
 
             if (workoutUser == null || workout == null)
             {

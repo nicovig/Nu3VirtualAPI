@@ -29,6 +29,11 @@ namespace NuVirtualApi.Domain.Business
             return _workoutManager.GetAllWorkoutsByUserIdAndDate(request);
         }
 
+        public WorkoutViewModel GetWorkoutByWorkoutId(int workoutId)
+        {
+            return _workoutManager.GetWorkoutByWorkoutId(workoutId);
+        }
+
         public bool UpdateWorkout(UpdateWorkoutRequest request)
         {
             return _workoutManager.UpdateWorkout(request);
