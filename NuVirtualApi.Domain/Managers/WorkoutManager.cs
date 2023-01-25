@@ -122,6 +122,7 @@ namespace NuVirtualApi.Domain.Managers
                 User = workoutUser
             };
 
+            _databaseContext.ChangeTracker.Clear();
             _databaseContext.Workouts.Update(workout);
             _databaseContext.SaveChanges();
 

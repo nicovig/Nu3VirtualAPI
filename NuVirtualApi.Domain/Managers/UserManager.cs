@@ -120,6 +120,7 @@ namespace NuVirtualApi.Domain.Managers
                 IsAdmin = user.IsAdmin
             };
 
+            _databaseContext.ChangeTracker.Clear();
             _databaseContext.Update(user);
             _databaseContext.SaveChanges();
 

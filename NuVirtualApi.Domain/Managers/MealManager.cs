@@ -138,7 +138,7 @@ namespace NuVirtualApi.Domain.Managers
         }
 
         public bool UpdateMeal(UpdateMealRequest request)
-        {
+        {          
             User user = _databaseContext.Users.Where(u => u.Id == request.UserId).FirstOrDefault();
             Meal meal = _databaseContext.Meals.Where(m => m.Id == request.Id).FirstOrDefault();
 
@@ -149,7 +149,7 @@ namespace NuVirtualApi.Domain.Managers
 
             meal = new Meal()
             {
-                Id = meal.Id,
+                Id = request.Id,
                 Name = request.Name,
                 Type = request.Type,
                 IsFavorite = request.IsFavorite,
@@ -160,7 +160,7 @@ namespace NuVirtualApi.Domain.Managers
                 Calorie = request.Calorie,
                 Notes = request.Notes
             };
-
+            _databaseContext.ChangeTracker.Clear();
             _databaseContext.Meals.Update(meal);
             _databaseContext.SaveChanges();
 

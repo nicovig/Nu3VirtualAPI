@@ -133,8 +133,8 @@ namespace NuVirtualApi.Domain.Managers
             nutritionGoalDb.Order = request.Order;
             nutritionGoalDb.TotalValue = request.TotalValue;
 
+            _databaseContext.ChangeTracker.Clear();
             _databaseContext.NutritionGoals.Update(nutritionGoalDb);
-
             _databaseContext.SaveChanges();
 
             return true;

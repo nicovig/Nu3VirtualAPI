@@ -38,11 +38,13 @@ public class WorkoutController : Controller
         return _workoutBusiness.GetAllWorkoutsByUserIdAndDate(request);
     }
 
-    [HttpGet("id")]
+    [HttpGet()]
+    [Route("workout/{workoutId}")]
     public ActionResult<WorkoutViewModel> GetWorkoutByWorkoutId(int workoutId)
     {
         return _workoutBusiness.GetWorkoutByWorkoutId(workoutId);
     }
+
     [HttpPut]
     public ActionResult<bool> UpdateWorkout([FromBody] UpdateWorkoutRequest request)
     {
