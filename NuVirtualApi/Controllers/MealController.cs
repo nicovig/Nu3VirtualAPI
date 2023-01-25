@@ -26,7 +26,14 @@ public class MealController : Controller
         return _mealBusiness.DeleteMeal(mealId);
     }
 
-    [HttpGet]
+    [HttpGet()]
+    [Route("favorites")]
+    public ActionResult<List<MealViewModel>> GetFavoritesMeals()
+    {
+        return _mealBusiness.GetFavoritesMeals();
+    }
+
+    [HttpGet()]
     public ActionResult<List<MealViewModel>> GetAllMealsByUserIdAndDate([FromHeader] int userId, [FromHeader] DateTime date)
     {
         var request = new GetAllMealsByUserIdAndDateRequest()
@@ -38,7 +45,8 @@ public class MealController : Controller
         return _mealBusiness.GetAllMealsByUserIdAndDate(request);
     }
 
-    [HttpGet("id")]
+    [HttpGet()]
+    [Route("meal/{mealId}")]
     public ActionResult<MealViewModel> GetMealByMealId([FromRoute] int mealId)
     {
         return _mealBusiness.GetMealByMealId(mealId);

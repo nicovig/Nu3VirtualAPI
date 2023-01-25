@@ -24,6 +24,11 @@ namespace NuVirtualApi.Domain.Business
             return _mealManager.DeleteMeal(mealId);
         }
 
+        public List<MealViewModel> GetFavoritesMeals()
+        {
+            return _mealManager.GetFavoritesMeals();
+        }        
+
         public List<MealViewModel> GetAllMealsByUserIdAndDate(GetAllMealsByUserIdAndDateRequest request)
         {
             return _mealManager.GetAllMealsByUserIdAndDate(request);

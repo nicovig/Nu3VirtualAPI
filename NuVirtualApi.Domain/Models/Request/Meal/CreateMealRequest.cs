@@ -9,7 +9,7 @@ namespace NuVirtualApi.Domain.Models.Request.Meal
 		[Required]
 		public string Name { get; set; }
 		[Required]
-		public MealTypeEnum Type { get; set; }
+		public int Type { get; set; }
 		public bool IsFavorite { get; set; }
 		[Required]
 		public DateTime Date { get; set; }

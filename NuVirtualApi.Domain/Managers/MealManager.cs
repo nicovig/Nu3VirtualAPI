@@ -1,5 +1,6 @@
 ﻿using NuVirtualApi.Database;
 using NuVirtualApi.Database.EntityModels;
+using NuVirtualApi.Database.Enums;
 using NuVirtualApi.Domain.Interfaces.Manager;
 using NuVirtualApi.Domain.Models.Request.Meal;
 using NuVirtualApi.Domain.Models.Response.Meal;
@@ -27,7 +28,7 @@ namespace NuVirtualApi.Domain.Managers
             Meal newMeal = new Meal()
             {
                 Name = request.Name,
-                Type = request.Type,
+                Type = (MealTypeEnum)request.Type,
                 IsFavorite = request.IsFavorite,
                 Date = request.Date,
                 Carbohydrate = request.Carbohydrate,
@@ -58,6 +59,32 @@ namespace NuVirtualApi.Domain.Managers
             return true;
         }
 
+        public List<MealViewModel> GetFavoritesMeals()
+        {
+            List<Meal> meals = _databaseContext.Meals.Where(m => m.IsFavorite).ToList();
+
+            List<MealViewModel> mealViewModels = new List<MealViewModel>();
+
+            meals.ForEach(meal =>
+            {
+                mealViewModels.Add(new MealViewModel()
+                {
+                    Id = meal.Id,
+                    Name = meal.Name,
+                    Type = meal.Type,
+                    IsFavorite = meal.IsFavorite,                    
+                    Carbohydrate = meal.Carbohydrate,
+                    Lipid = meal.Lipid,
+                    Protein = meal.Protein,
+                    Calorie = meal.Calorie,
+                    Notes = meal.Notes,
+                    UserId = meal.User.Id
+                });
+            });
+
+            return mealViewModels;
+        }
+
         public List<MealViewModel> GetAllMealsByUserIdAndDate(GetAllMealsByUserIdAndDateRequest request)
         {
             List<Meal> meals = _databaseContext.Meals.Where(m => m.User.Id == request.UserId 
@@ -65,7 +92,7 @@ namespace NuVirtualApi.Domain.Managers
                                                               && m.Date.Month == request.Date.Month 
                                                               && m.Date.Year == request.Date.Year).ToList();
 
-            List<MealViewModel> mealViewModels = new List<MealViewModel>();
+            List <MealViewModel> mealViewModels = new List<MealViewModel>();
 
             meals.ForEach(meal =>
             {
@@ -80,8 +107,7 @@ namespace NuVirtualApi.Domain.Managers
                     Lipid = meal.Lipid,
                     Protein = meal.Protein,
                     Calorie = meal.Calorie,
-                    Notes = meal.Notes,
-                    UserId = meal.User.Id
+                    Notes = meal.Notes
                 });
             });
 
@@ -104,8 +130,7 @@ namespace NuVirtualApi.Domain.Managers
                     Lipid = meal.Lipid,
                     Protein = meal.Protein,
                     Calorie = meal.Calorie,
-                    Notes = meal.Notes,
-                    UserId = meal.User.Id
+                    Notes = meal.Notes
                 };
             } 
 
@@ -133,8 +158,7 @@ namespace NuVirtualApi.Domain.Managers
                 Lipid = request.Lipid,
                 Protein = request.Protein,
                 Calorie = request.Calorie,
-                Notes = request.Notes,
-                User = user
+                Notes = request.Notes
             };
 
             _databaseContext.Meals.Update(meal);
