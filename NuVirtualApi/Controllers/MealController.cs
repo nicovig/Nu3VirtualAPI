@@ -20,7 +20,8 @@ public class MealController : Controller
         return _mealBusiness.CreateMeal(request);
     }
 
-    [HttpDelete("id")]
+    [HttpDelete()]
+    [Route("{mealId}")]
     public ActionResult<bool> DeleteMeal([FromRoute] int mealId)
     {
         return _mealBusiness.DeleteMeal(mealId);
