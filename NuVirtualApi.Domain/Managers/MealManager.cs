@@ -87,10 +87,11 @@ namespace NuVirtualApi.Domain.Managers
 
         public List<MealViewModel> GetAllMealsByUserIdAndDate(GetAllMealsByUserIdAndDateRequest request)
         {
-            List<Meal> meals = _databaseContext.Meals.Where(m => m.User.Id == request.UserId 
-                                                              && m.Date.Day == request.Date.Day 
-                                                              && m.Date.Month == request.Date.Month 
+            List<Meal> meals = _databaseContext.Meals.Where(m => m.User.Id == request.UserId
+                                                              && m.Date.Day == request.Date.Day
+                                                              && m.Date.Month == request.Date.Month
                                                               && m.Date.Year == request.Date.Year).ToList();
+
 
             List <MealViewModel> mealViewModels = new List<MealViewModel>();
 

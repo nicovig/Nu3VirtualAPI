@@ -72,8 +72,7 @@ namespace NuVirtualApi.Domain.Managers
                     Date = workout.Date,
                     TimeInSeconds = workout.TimeInSeconds,
                     CaloriesBurned = workout.CaloriesBurned,
-                    Notes = workout.Notes,
-                    UserId = workout.User.Id
+                    Notes = workout.Notes
                 });
             });
 
@@ -93,8 +92,7 @@ namespace NuVirtualApi.Domain.Managers
                     Date = workout.Date,
                     TimeInSeconds = workout.TimeInSeconds,
                     CaloriesBurned = workout.CaloriesBurned,
-                    Notes = workout.Notes,
-                    UserId = workout.User.Id
+                    Notes = workout.Notes
                 };
             }            
 
@@ -118,7 +116,7 @@ namespace NuVirtualApi.Domain.Managers
                 Date = request.Date,
                 TimeInSeconds = request.TimeInSeconds,
                 CaloriesBurned = request.CaloriesBurned,
-                Notes = workout.Notes,
+                Notes = request.Notes,
                 User = workoutUser
             };
 

@@ -21,6 +21,7 @@ public class WorkoutController : Controller
     }
 
     [HttpDelete("id")]
+    [Route("{workoutId}")]
     public ActionResult<bool> DeleteWorkout([FromRoute] int workoutId)
     {
         return _workoutBusiness.DeleteWorkout(workoutId);
