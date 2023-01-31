@@ -26,6 +26,9 @@ builder.Services.AddDbContext<DatabaseContext>(
 //Others dependency injections
 builder.Services.AddScoped<IAuthenticationBusiness, AuthenticationBusiness>();
 
+builder.Services.AddScoped<IFavoriteMealManager, FavoriteMealManager>();
+builder.Services.AddScoped<IFavoriteMealBusiness, FavoriteMealBusiness>();
+
 builder.Services.AddScoped<IMealManager, MealManager>();
 builder.Services.AddScoped<IMealBusiness, MealBusiness>();
 
@@ -40,7 +43,6 @@ builder.Services.AddScoped<IUserBusiness, UserBusiness>();
 
 builder.Services.AddScoped<IWorkoutManager, WorkoutManager>();
 builder.Services.AddScoped<IWorkoutBusiness, WorkoutBusiness>();
-
 
 //configuration de l'authentification et du format de token
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();

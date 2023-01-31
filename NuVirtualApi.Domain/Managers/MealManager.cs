@@ -16,13 +16,13 @@ namespace NuVirtualApi.Domain.Managers
             _databaseContext = databaseContext;
         }
 
-        public bool CreateMeal(CreateMealRequest request)
+        public int CreateMeal(CreateMealRequest request)
         {
             User mealUser = _databaseContext.Users.Where(u => u.Id == request.UserId).FirstOrDefault();
 
             if (mealUser == null)
             {
-                return false;
+                return 0;
             }
 
             Meal newMeal = new Meal()
@@ -42,7 +42,7 @@ namespace NuVirtualApi.Domain.Managers
             _databaseContext.Meals.Add(newMeal);
             _databaseContext.SaveChanges();
 
-            return true;
+            return newMeal.Id;
         }
 
         public bool DeleteMeal(int mealId)
@@ -57,32 +57,6 @@ namespace NuVirtualApi.Domain.Managers
             _databaseContext.SaveChanges();
 
             return true;
-        }
-
-        public List<MealViewModel> GetFavoritesMeals()
-        {
-            List<Meal> meals = _databaseContext.Meals.Where(m => m.IsFavorite).ToList();
-
-            List<MealViewModel> mealViewModels = new List<MealViewModel>();
-
-            meals.ForEach(meal =>
-            {
-                mealViewModels.Add(new MealViewModel()
-                {
-                    Id = meal.Id,
-                    Name = meal.Name,
-                    Type = meal.Type,
-                    IsFavorite = meal.IsFavorite,                    
-                    Carbohydrate = meal.Carbohydrate,
-                    Lipid = meal.Lipid,
-                    Protein = meal.Protein,
-                    Calorie = meal.Calorie,
-                    Notes = meal.Notes,
-                    UserId = meal.User.Id
-                });
-            });
-
-            return mealViewModels;
         }
 
         public List<MealViewModel> GetAllMealsByUserIdAndDate(GetAllMealsByUserIdAndDateRequest request)

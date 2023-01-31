@@ -20,11 +20,6 @@ namespace NuVirtualApi.Domain.Business
             _nutritionGoalManager = nutritionGoalManager;
         }
 
-        public bool CreateDefaultNutritionGoals(CreateDefaultNutritionGoalsRequest request)
-        {
-            return _nutritionGoalManager.CreateDefaultNutritionGoals(request);
-        }
-
         public List<NutritionGoalViewModel> GetAllNutritionGoalsByUserIdAndDate(GetAllNutritionGoalsByUserIdAndDateRequest request)
         {
             List<MealViewModel> mealsByDate = _mealManager.GetAllMealsByUserIdAndDate(new GetAllMealsByUserIdAndDateRequest()

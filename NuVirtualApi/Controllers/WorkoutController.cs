@@ -20,7 +20,7 @@ public class WorkoutController : Controller
         return _workoutBusiness.CreateWorkout(request);
     }
 
-    [HttpDelete("id")]
+    [HttpDelete()]
     [Route("{workoutId}")]
     public ActionResult<bool> DeleteWorkout([FromRoute] int workoutId)
     {

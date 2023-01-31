@@ -7,27 +7,33 @@ namespace NuVirtualApi.Domain.Business
 {
     public class MealBusiness : IMealBusiness
     {
+        public IFavoriteMealManager _favoriteMealManager;
         public IMealManager _mealManager;
 
-        public MealBusiness(IMealManager mealManager)
+        public MealBusiness(IFavoriteMealManager favoriteMealManager, IMealManager mealManager)
         {
+            _favoriteMealManager = favoriteMealManager;
             _mealManager = mealManager;
         }
 
         public bool CreateMeal(CreateMealRequest request)
         {
-            return _mealManager.CreateMeal(request);
+            int mealId = _mealManager.CreateMeal(request);
+
+            if (mealId == 0)
+            {
+                return false;
+            }
+
+            bool treatmeantIsOk = _favoriteMealManager.CreateFavoriteMeal(mealId);
+
+            return treatmeantIsOk; 
         }
 
         public bool DeleteMeal(int mealId)
         {
             return _mealManager.DeleteMeal(mealId);
-        }
-
-        public List<MealViewModel> GetFavoritesMeals()
-        {
-            return _mealManager.GetFavoritesMeals();
-        }        
+        }       
 
         public List<MealViewModel> GetAllMealsByUserIdAndDate(GetAllMealsByUserIdAndDateRequest request)
         {
@@ -41,7 +47,16 @@ namespace NuVirtualApi.Domain.Business
 
         public bool UpdateMeal(UpdateMealRequest request)
         {
-            return _mealManager.UpdateMeal(request);
+            bool updateIsOk = _mealManager.UpdateMeal(request);
+
+            if (!updateIsOk)
+            {
+                return false;
+            }
+
+            bool treatmeantIsOk = _favoriteMealManager.UpdateFavoriteMealByMealId(request.Id);
+
+            return treatmeantIsOk;
         }
     }
 }

@@ -5,9 +5,8 @@ namespace NuVirtualApi.Domain.Interfaces.Manager
 {
     public interface IMealManager
     {
-        bool CreateMeal(CreateMealRequest request);
+        int CreateMeal(CreateMealRequest request);
         bool DeleteMeal(int mealId);
-        List<MealViewModel> GetFavoritesMeals();
         List<MealViewModel> GetAllMealsByUserIdAndDate(GetAllMealsByUserIdAndDateRequest request);
         MealViewModel GetMealByMealId(int mealId);
         bool UpdateMeal(UpdateMealRequest request);

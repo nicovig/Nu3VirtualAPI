@@ -8,6 +8,7 @@ namespace NuVirtualApi.Database
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         { }
 
+        public DbSet<FavoriteMeal> FavoriteMeals { get; set; }
         public DbSet<Meal> Meals { get; set; }
         public DbSet<NutritionGoal> NutritionGoals { get; set; }
         public DbSet<User> Users { get; set; }

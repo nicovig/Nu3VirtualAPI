@@ -28,13 +28,6 @@ public class MealController : Controller
     }
 
     [HttpGet()]
-    [Route("favorites")]
-    public ActionResult<List<MealViewModel>> GetFavoritesMeals()
-    {
-        return _mealBusiness.GetFavoritesMeals();
-    }
-
-    [HttpGet()]
     public ActionResult<List<MealViewModel>> GetAllMealsByUserIdAndDate([FromHeader] int userId, [FromHeader] DateTime date)
     {
         var request = new GetAllMealsByUserIdAndDateRequest()
