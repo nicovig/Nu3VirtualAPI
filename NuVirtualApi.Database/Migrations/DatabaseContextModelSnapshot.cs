@@ -39,14 +39,14 @@ namespace NuVirtualApi.Database.Migrations
                     b.Property<int>("Lipid")
                         .HasColumnType("int");
 
-                    b.Property<int>("MealId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Protein")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SourceMealId")
                         .HasColumnType("int");
 
                     b.Property<int>("Type")
@@ -56,10 +56,6 @@ namespace NuVirtualApi.Database.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MealId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("FavoriteMeals");
                 });
@@ -223,25 +219,6 @@ namespace NuVirtualApi.Database.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Workouts");
-                });
-
-            modelBuilder.Entity("NuVirtualApi.Database.EntityModels.FavoriteMeal", b =>
-                {
-                    b.HasOne("NuVirtualApi.Database.EntityModels.Meal", "Meal")
-                        .WithMany()
-                        .HasForeignKey("MealId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NuVirtualApi.Database.EntityModels.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Meal");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("NuVirtualApi.Database.EntityModels.Meal", b =>

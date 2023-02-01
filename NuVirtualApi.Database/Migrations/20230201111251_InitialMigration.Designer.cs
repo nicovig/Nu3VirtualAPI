@@ -12,8 +12,8 @@ using NuVirtualApi.Database;
 namespace NuVirtualApi.Database.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221216145632_AllModels")]
-    partial class AllModels
+    [Migration("20230201111251_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,44 @@ namespace NuVirtualApi.Database.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("NuVirtualApi.Database.EntityModels.FavoriteMeal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Calorie")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Carbohydrate")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Lipid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Protein")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SourceMealId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FavoriteMeals");
+                });
 
             modelBuilder.Entity("NuVirtualApi.Database.EntityModels.Meal", b =>
                 {
@@ -148,22 +186,6 @@ namespace NuVirtualApi.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Birthday = new DateTime(1994, 7, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "koalaviril@gmail.com",
-                            FirstName = "Nicolas",
-                            Gender = 1,
-                            Height = 168,
-                            IsAdmin = false,
-                            LastName = "Vigouroux",
-                            Password = "nuvirtual@01",
-                            Pseudo = "koalaviril",
-                            Weight = 76.099999999999994
-                        });
                 });
 
             modelBuilder.Entity("NuVirtualApi.Database.EntityModels.Workout", b =>

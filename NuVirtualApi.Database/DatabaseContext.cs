@@ -16,7 +16,7 @@ namespace NuVirtualApi.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasKey(u => new { u.Id });
+
         }
     }
 }
