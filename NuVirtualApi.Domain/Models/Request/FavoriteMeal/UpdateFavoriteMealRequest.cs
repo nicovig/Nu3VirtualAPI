@@ -1,9 +1,11 @@
 ﻿using NuVirtualApi.Database.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace NuVirtualApi.Domain.Models.Request.FavoriteMeal
 {
     public class UpdateFavoriteMealRequest
     {
+		[Required]
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public MealTypeEnum Type { get; set; }

@@ -1,5 +1,6 @@
 ﻿using NuVirtualApi.Database;
 using NuVirtualApi.Database.EntityModels;
+using NuVirtualApi.Database.Enums;
 using NuVirtualApi.Domain.Interfaces.Manager;
 using NuVirtualApi.Domain.Models.Request.FavoriteMeal;
 using NuVirtualApi.Domain.Models.Response.FavoriteMeal;
@@ -13,6 +14,37 @@ namespace NuVirtualApi.Domain.Managers
         public FavoriteMealManager(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
+        }
+
+        public bool AddFavoriteMealToDailyMeals(AddFavoriteMealToDailyMealsRequest request)
+        {
+            FavoriteMeal favoriteMeal = _databaseContext.FavoriteMeals.Where(m => m.Id == request.FavoriteMealId).FirstOrDefault();
+
+            User mealUser = _databaseContext.Users.Where(u => u.Id == request.UserId).FirstOrDefault();
+
+            if (mealUser == null)
+            {
+                return false;
+            }
+
+            Meal newMeal = new Meal()
+            {
+                Name = favoriteMeal.Name,
+                Type = favoriteMeal.Type,
+                IsFavorite = true,
+                Date = request.Date,
+                Carbohydrate = favoriteMeal.Carbohydrate,
+                Lipid = favoriteMeal.Lipid,
+                Protein = favoriteMeal.Protein,
+                Calorie = favoriteMeal.Calorie,
+                Notes = "",
+                User = mealUser
+            };
+
+            _databaseContext.Meals.Add(newMeal);
+            int result = _databaseContext.SaveChanges();
+
+            return result == 1 ? true : false;
         }
 
         public bool CreateFavoriteMeal(int mealId)

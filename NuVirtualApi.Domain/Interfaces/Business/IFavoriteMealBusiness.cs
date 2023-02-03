@@ -5,6 +5,7 @@ namespace NuVirtualApi.Domain.Interfaces.Business
 {
     public interface IFavoriteMealBusiness
     {
+        public bool AddFavoriteMealToDailyMeals(AddFavoriteMealToDailyMealsRequest request);
         public bool DeleteFavoriteMeal(int favoriteMealId);
         List<FavoriteMealViewModel> GetAllFavoriteMealsByUserId(int userId);
         FavoriteMealViewModel GetFavoriteMealById(int favoriteMealId);

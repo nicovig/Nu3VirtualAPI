@@ -14,6 +14,18 @@ public class FavoriteMealController : Controller
         _favoriteMealBusiness = favoriteMealBusiness;
     }
 
+    [HttpPost()]
+    public ActionResult<bool> AddFavoriteMealToDailyMeals([FromHeader] int userId, [FromBody] AddFavoriteMealToDailyMealsRequest request)
+    {
+        request = new AddFavoriteMealToDailyMealsRequest()
+        {
+            Date = request.Date,
+            FavoriteMealId = request.FavoriteMealId,
+            UserId = userId
+        };
+
+        return _favoriteMealBusiness.AddFavoriteMealToDailyMeals(request);
+    }
 
     [HttpDelete()]
     [Route("{favoriteMealId}")]

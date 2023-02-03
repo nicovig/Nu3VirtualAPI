@@ -5,6 +5,7 @@ namespace NuVirtualApi.Domain.Interfaces.Manager
 {
     public interface IFavoriteMealManager
     {
+        public bool AddFavoriteMealToDailyMeals(AddFavoriteMealToDailyMealsRequest request);
         public bool CreateFavoriteMeal(int mealId);
         public bool DeleteFavoriteMeal(int favoriteMealId);
         List<FavoriteMealViewModel> GetAllFavoriteMealsByUserId(int userId);

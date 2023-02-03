@@ -14,6 +14,11 @@ namespace NuVirtualApi.Domain.Business
             _favoriteMealManager = favoriteMealManager;
         }
 
+        public bool AddFavoriteMealToDailyMeals(AddFavoriteMealToDailyMealsRequest request)
+        {
+            return _favoriteMealManager.AddFavoriteMealToDailyMeals(request);
+        }
+
         public bool DeleteFavoriteMeal(int favoriteMealId)
         {
             return _favoriteMealManager.DeleteFavoriteMeal(favoriteMealId);
