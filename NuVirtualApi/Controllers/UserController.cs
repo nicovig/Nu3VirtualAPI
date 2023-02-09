@@ -29,8 +29,9 @@ public class UserController : Controller
     }
 
     [HttpPut]
-    public ActionResult<bool> UpdateUser([FromBody] UpdateUserRequest request)
+    public ActionResult<UpdateUserResponse> UpdateUser([FromBody] UpdateUserRequest request, [FromHeader] string password)
     {
+        request.Password = password;
         return _userBusiness.UpdateUser(request);
     }
 }

@@ -93,7 +93,7 @@ namespace NuVirtualApi.Domain.Managers
             };
 
             _databaseContext.Users.Add(newUser);
-            int test = _databaseContext.SaveChanges();
+            _databaseContext.SaveChanges();
 
             UserModel userToResponse = new UserModel()
             {
@@ -117,11 +117,19 @@ namespace NuVirtualApi.Domain.Managers
             };
         }
 
-        public bool UpdateUser(UpdateUserRequest request)
+        public UpdateUserResponse UpdateUser(UpdateUserRequest request)
         {
             User user = _databaseContext.Users.Where(u => u.Id == request.Id).FirstOrDefault();
 
-            if (user == null) return false;
+            if (user.Password != PasswordTool.HashPassword(request.Password))
+            {
+                throw new Exception("Le mot de passe renseigné n'est pas celui qui a servi à la création du compte");
+            }
+
+            if (user == null)
+            {
+                throw new Exception("Erreur lors de la mise à jour de l'utilisateur");
+            }
 
             user = new User()
             {
@@ -142,7 +150,26 @@ namespace NuVirtualApi.Domain.Managers
             _databaseContext.Update(user);
             _databaseContext.SaveChanges();
 
-            return true;
+            UserModel userToResponse = new UserModel()
+            {
+                Id = user.Id,
+                Pseudo = user.Pseudo,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Gender = user.Gender,
+                Birthday = user.Birthday,
+                Height = user.Height,
+                Weight = user.Weight,
+                Email = user.Email,
+                Password = user.Password,
+                IsAdmin = false
+            };
+
+            return new UpdateUserResponse()
+            {
+                Token = TokenTool.GenerateJwt(userToResponse, _jwtSettings.Value),
+                User = userToResponse
+            };
         }
     }
 }
