@@ -17,6 +17,11 @@ namespace NuVirtualApi.Domain.Business
             _userManager = userManager;
         }
 
+        public bool ChangePassword(int userId, string oldPassword, string newPassword)
+        {
+            return _userManager.ChangePassword(userId, oldPassword, newPassword);
+        }
+
         public CreateUserResponse CreateUser(CreateUserRequest request)
         {
             CreateUserResponse createUserResponse = _userManager.CreateUser(request);

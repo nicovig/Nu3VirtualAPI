@@ -14,9 +14,17 @@ public class UserController : Controller
         _userBusiness = userBusiness;
     }
 
+    [HttpPatch]
+    [Route("password")]
+    public ActionResult<bool> ChangePassword([FromHeader] string userId, [FromHeader] string oldPassword, [FromHeader] string newPassword)
+    {
+        return _userBusiness.ChangePassword(int.Parse(userId), oldPassword, newPassword);
+    }
+
     [HttpPost]
     public ActionResult<CreateUserResponse> CreateUser([FromBody] CreateUserRequest request, [FromHeader] string password)
     {
+        request.Password = password;
         return _userBusiness.CreateUser(request);
     }
 

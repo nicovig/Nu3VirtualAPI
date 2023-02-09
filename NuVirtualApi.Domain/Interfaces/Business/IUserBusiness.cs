@@ -6,6 +6,7 @@ namespace NuVirtualApi.Domain.Interfaces.Business
 {
     public interface IUserBusiness
     {
+        bool ChangePassword(int userId, string oldPassword, string newPassword);
         CreateUserResponse CreateUser(CreateUserRequest request);
         bool UpdateUser(UpdateUserRequest request);
     }

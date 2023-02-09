@@ -58,6 +58,24 @@ namespace NuVirtualApi.Domain.Managers
             return result;
         }
 
+        public bool ChangePassword(int userId, string oldPassword, string newPassword)
+        {
+            User user = _databaseContext.Users.Where(u => u.Id == userId).FirstOrDefault();
+
+            if (user.Password != PasswordTool.HashPassword(oldPassword))
+            {
+                return false;
+            }
+
+            user.Password = PasswordTool.HashPassword(newPassword);
+
+            _databaseContext.ChangeTracker.Clear();
+            _databaseContext.Update(user);
+            _databaseContext.SaveChanges();
+
+            return true;
+        }
+
         public CreateUserResponse CreateUser(CreateUserRequest request)
         {
             User newUser = new User() 
