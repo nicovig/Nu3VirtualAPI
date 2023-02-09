@@ -7,7 +7,8 @@ namespace NuVirtualApi.Domain.Interfaces.Managers
     public interface INutritionGoalManager
     {
         bool CreateDefaultNutritionGoals(CreateDefaultNutritionGoalsRequest request);
+        List<NutritionGoalViewModel> GetAllNutritionGoalsByUserId(int userId);
         List<NutritionGoalViewModel> GetAllNutritionGoalsByUserIdAndDate(GetAllNutritionGoalsByUserIdAndDateRequest request, List<MealViewModel> mealsByDate);
-        bool UpdateNutritionGoal(UpdateNutritionGoalRequest request);
+        bool UpdateNutritionGoal(UpdateNutritionGoalsRequest request);
     }
 }

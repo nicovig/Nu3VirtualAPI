@@ -5,7 +5,8 @@ namespace NuVirtualApi.Domain.Interfaces.Business
 {
     public interface INutritionGoalBusiness
     {
+        List<NutritionGoalViewModel> GetAllNutritionGoalsByUserId(int userId);
         List<NutritionGoalViewModel> GetAllNutritionGoalsByUserIdAndDate(GetAllNutritionGoalsByUserIdAndDateRequest request);
-        bool UpdateNutritionGoal(UpdateNutritionGoalRequest request);
+        bool UpdateNutritionGoal(UpdateNutritionGoalsRequest request);
     }
 }

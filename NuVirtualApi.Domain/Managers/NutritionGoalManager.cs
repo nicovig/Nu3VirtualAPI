@@ -64,6 +64,27 @@ namespace NuVirtualApi.Domain.Managers
             return true;
         }
 
+        public List<NutritionGoalViewModel> GetAllNutritionGoalsByUserId(int userId)
+        {
+            var nutritionGoalsDb = _databaseContext.NutritionGoals.Where(n => n.User.Id == userId).ToList();
+
+            List<NutritionGoalViewModel> result = new List<NutritionGoalViewModel>();
+
+            nutritionGoalsDb.ForEach(n =>
+            {
+                result.Add(new NutritionGoalViewModel() 
+                {
+                    Id = n.Id,
+                    Name = n.Name,
+                    Type = n.Type,
+                    Order = n.Order,
+                    TotalValue = n.TotalValue
+                });
+            });
+
+            return result;
+        }
+
         public List<NutritionGoalViewModel> GetAllNutritionGoalsByUserIdAndDate(GetAllNutritionGoalsByUserIdAndDateRequest request, List<MealViewModel> mealsByDate)
         {
             var nutritionGoalsDb = _databaseContext.NutritionGoals.Where(n => n.User.Id == request.UserId).ToList();
@@ -92,19 +113,19 @@ namespace NuVirtualApi.Domain.Managers
                 {
                     case MacronutrientTypeEnum.Carbohydratre:
                         achievedValue = allCarbohydratesByDay;
-                        achievedRatio = allCarbohydratesByDay / n.TotalValue;
+                        achievedRatio = (double)allCarbohydratesByDay / n.TotalValue;
                         break;
                     case MacronutrientTypeEnum.Lipid:
                         achievedValue = allLipidsByDay;
-                        achievedRatio = allLipidsByDay / n.TotalValue;
+                        achievedRatio = (double)allLipidsByDay / n.TotalValue;
                         break;
                     case MacronutrientTypeEnum.Protein:
                         achievedValue = allProteinsByDay;
-                        achievedRatio = allProteinsByDay / n.TotalValue;
+                        achievedRatio = (double)allProteinsByDay / n.TotalValue;
                         break;
                     case MacronutrientTypeEnum.Calorie:
                         achievedValue = allCaloriesByDay;
-                        achievedRatio = allCaloriesByDay / n.TotalValue;
+                        achievedRatio = (double)allCaloriesByDay / n.TotalValue;
                         break;
                 }
 
@@ -124,20 +145,23 @@ namespace NuVirtualApi.Domain.Managers
             return result;
         }
 
-        public bool UpdateNutritionGoal(UpdateNutritionGoalRequest request)
+        public bool UpdateNutritionGoal(UpdateNutritionGoalsRequest request)
         {
-            var nutritionGoalDb = _databaseContext.NutritionGoals.Where(n => n.Id == request.Id).FirstOrDefault();
+            int changedNutritionGoals = 0;
+            
+            request.NutritionGoals.ForEach(nutritionGoal =>
+            {
+                var nutritionGoalDb = _databaseContext.NutritionGoals.Where(n => n.Id == nutritionGoal.Id).FirstOrDefault();
 
-            if (nutritionGoalDb == null) return false;
+                nutritionGoalDb.Order = nutritionGoal.Order;
+                nutritionGoalDb.TotalValue = nutritionGoal.TotalValue;
 
-            nutritionGoalDb.Order = request.Order;
-            nutritionGoalDb.TotalValue = request.TotalValue;
+                _databaseContext.ChangeTracker.Clear();
+                _databaseContext.NutritionGoals.Update(nutritionGoalDb);
+                changedNutritionGoals += _databaseContext.SaveChanges();
+            });
 
-            _databaseContext.ChangeTracker.Clear();
-            _databaseContext.NutritionGoals.Update(nutritionGoalDb);
-            _databaseContext.SaveChanges();
-
-            return true;
+            return changedNutritionGoals == request.NutritionGoals.Count ? true : false;
         }
     }
 }

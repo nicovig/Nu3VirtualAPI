@@ -14,7 +14,13 @@ public class NutritionGoalController : Controller
         _nutritionGoalBusiness = nutritionGoalBusiness;
     }
 
-    [HttpGet]
+    [HttpGet()]
+    public ActionResult<List<NutritionGoalViewModel>> GetAllNutritionGoalsByUserId([FromHeader] int userId)
+    {
+        return _nutritionGoalBusiness.GetAllNutritionGoalsByUserId(userId);
+    }
+
+    [HttpGet("withDate")]
     public ActionResult<List<NutritionGoalViewModel>> GetAllNutritionGoalsByUserIdAndDate([FromHeader] int userId, [FromHeader] DateTime date)
     {
         var request = new GetAllNutritionGoalsByUserIdAndDateRequest()
@@ -27,7 +33,7 @@ public class NutritionGoalController : Controller
     }
 
     [HttpPut]
-    public ActionResult<bool> UpdateNutritionGoal([FromBody] UpdateNutritionGoalRequest request)
+    public ActionResult<bool> UpdateNutritionGoal([FromBody] UpdateNutritionGoalsRequest request)
     {
         return _nutritionGoalBusiness.UpdateNutritionGoal(request);
     }
