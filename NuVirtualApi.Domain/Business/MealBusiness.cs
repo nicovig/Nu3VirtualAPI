@@ -25,9 +25,9 @@ namespace NuVirtualApi.Domain.Business
                 return false;
             }
 
-            bool treatmeantIsOk = _favoriteMealManager.CreateFavoriteMeal(mealId);
+            bool treatmentIsOk = _favoriteMealManager.CreateFavoriteMeal(mealId, request.UserId);
 
-            return treatmeantIsOk; 
+            return treatmentIsOk; 
         }
 
         public bool DeleteMeal(int mealId)
@@ -54,9 +54,9 @@ namespace NuVirtualApi.Domain.Business
                 return false;
             }
 
-            bool treatmeantIsOk = _favoriteMealManager.UpdateFavoriteMealByMealId(request.Id);
+            bool favoriteMealTreatmentIsOk = _favoriteMealManager.UpdateFavoriteMealByMealId(request.Id, request.UserId);
 
-            return treatmeantIsOk;
+            return favoriteMealTreatmentIsOk;
         }
     }
 }

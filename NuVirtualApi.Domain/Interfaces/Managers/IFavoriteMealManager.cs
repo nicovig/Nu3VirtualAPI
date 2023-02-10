@@ -6,11 +6,11 @@ namespace NuVirtualApi.Domain.Interfaces.Manager
     public interface IFavoriteMealManager
     {
         public bool AddFavoriteMealToDailyMeals(AddFavoriteMealToDailyMealsRequest request);
-        public bool CreateFavoriteMeal(int mealId);
-        public bool DeleteFavoriteMeal(int favoriteMealId);
+        public bool CreateFavoriteMeal(int mealId, int userId);
+        public int DeleteFavoriteMeal(int favoriteMealId);
         List<FavoriteMealViewModel> GetAllFavoriteMealsByUserId(int userId);
         FavoriteMealViewModel GetFavoriteMealById(int favoriteMealId);
         bool UpdateFavoriteMeal(UpdateFavoriteMealRequest request);
-        bool UpdateFavoriteMealByMealId(int mealId);
+        bool UpdateFavoriteMealByMealId(int mealId, int userId);
     }
 }

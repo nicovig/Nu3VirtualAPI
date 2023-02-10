@@ -8,10 +8,12 @@ namespace NuVirtualApi.Domain.Business
     public class FavoriteMealBusiness : IFavoriteMealBusiness
     {
         public IFavoriteMealManager _favoriteMealManager;
+        public IMealManager _mealManager;
 
-        public FavoriteMealBusiness(IFavoriteMealManager favoriteMealManager)
+        public FavoriteMealBusiness(IFavoriteMealManager favoriteMealManager, IMealManager mealManager)
         {
             _favoriteMealManager = favoriteMealManager;
+            _mealManager = mealManager;
         }
 
         public bool AddFavoriteMealToDailyMeals(AddFavoriteMealToDailyMealsRequest request)
@@ -21,7 +23,13 @@ namespace NuVirtualApi.Domain.Business
 
         public bool DeleteFavoriteMeal(int favoriteMealId)
         {
-            return _favoriteMealManager.DeleteFavoriteMeal(favoriteMealId);
+            int mealId = _favoriteMealManager.DeleteFavoriteMeal(favoriteMealId);
+
+            if (mealId == null || mealId == 0) {
+                return false;
+            }
+
+            return _mealManager.UpdateIsFavoriteByMealId(mealId);
         }
 
         public List<FavoriteMealViewModel> GetAllFavoriteMealsByUserId(int userId)

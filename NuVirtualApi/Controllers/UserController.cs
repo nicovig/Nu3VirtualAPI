@@ -28,6 +28,13 @@ public class UserController : Controller
         return _userBusiness.CreateUser(request);
     }
 
+    [HttpGet]
+    [Route("email")]
+    public ActionResult<bool> IsEmailUsable([FromHeader] string email)
+    {
+        return _userBusiness.IsEmailUsable(email);
+    }
+
     [HttpPut]
     public ActionResult<UpdateUserResponse> UpdateUser([FromBody] UpdateUserRequest request, [FromHeader] string password)
     {

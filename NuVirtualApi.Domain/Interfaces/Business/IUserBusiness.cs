@@ -8,6 +8,7 @@ namespace NuVirtualApi.Domain.Interfaces.Business
     {
         bool ChangePassword(int userId, string oldPassword, string newPassword);
         CreateUserResponse CreateUser(CreateUserRequest request);
+        bool IsEmailUsable(string email);
         UpdateUserResponse UpdateUser(UpdateUserRequest request);
     }
 }

@@ -40,6 +40,11 @@ namespace NuVirtualApi.Domain.Business
             return createUserResponse;
         }
 
+        public bool IsEmailUsable(string email)
+        {
+            return _userManager.IsEmailUsable(email);
+        }
+
         public UpdateUserResponse UpdateUser(UpdateUserRequest request)
         {
             return _userManager.UpdateUser(request);

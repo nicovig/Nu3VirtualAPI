@@ -117,6 +117,12 @@ namespace NuVirtualApi.Domain.Managers
             };
         }
 
+        public bool IsEmailUsable(string email)
+        {
+            var users = _databaseContext.Users.Where(u => u.Email == email);
+            return users.Count() == 0;
+        }
+
         public UpdateUserResponse UpdateUser(UpdateUserRequest request)
         {
             User user = _databaseContext.Users.Where(u => u.Id == request.Id).FirstOrDefault();

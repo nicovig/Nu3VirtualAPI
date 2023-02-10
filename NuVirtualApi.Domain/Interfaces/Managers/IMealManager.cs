@@ -10,5 +10,6 @@ namespace NuVirtualApi.Domain.Interfaces.Manager
         List<MealViewModel> GetAllMealsByUserIdAndDate(GetAllMealsByUserIdAndDateRequest request);
         MealViewModel GetMealByMealId(int mealId);
         bool UpdateMeal(UpdateMealRequest request);
+        bool UpdateIsFavoriteByMealId(int mealId);
     }
 }
