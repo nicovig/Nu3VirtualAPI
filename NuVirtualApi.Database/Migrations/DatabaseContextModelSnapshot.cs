@@ -77,6 +77,9 @@ namespace NuVirtualApi.Database.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("FavoriteMealId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsFavorite")
                         .HasColumnType("bit");
 
@@ -102,6 +105,8 @@ namespace NuVirtualApi.Database.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FavoriteMealId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Meals");
@@ -114,6 +119,9 @@ namespace NuVirtualApi.Database.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -223,11 +231,17 @@ namespace NuVirtualApi.Database.Migrations
 
             modelBuilder.Entity("NuVirtualApi.Database.EntityModels.Meal", b =>
                 {
+                    b.HasOne("NuVirtualApi.Database.EntityModels.FavoriteMeal", "FavoriteMeal")
+                        .WithMany("Meals")
+                        .HasForeignKey("FavoriteMealId");
+
                     b.HasOne("NuVirtualApi.Database.EntityModels.User", "User")
                         .WithMany("Meals")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("FavoriteMeal");
 
                     b.Navigation("User");
                 });
@@ -252,6 +266,11 @@ namespace NuVirtualApi.Database.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("NuVirtualApi.Database.EntityModels.FavoriteMeal", b =>
+                {
+                    b.Navigation("Meals");
                 });
 
             modelBuilder.Entity("NuVirtualApi.Database.EntityModels.User", b =>

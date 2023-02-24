@@ -35,9 +35,9 @@ namespace NuVirtualApi.Domain.Business
             return _nutritionGoalManager.GetAllNutritionGoalsByUserIdAndDate(request, mealsByDate);
         }
 
-        public bool UpdateNutritionGoal(UpdateNutritionGoalsRequest request)
+        public bool UpdateNutritionGoals(UpdateNutritionGoalsRequest request)
         {
-            return _nutritionGoalManager.UpdateNutritionGoal(request);
+            return _nutritionGoalManager.UpdateNutritionGoals(request);
         }
     }
 }

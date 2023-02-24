@@ -36,6 +36,7 @@ namespace NuVirtualApi.Domain.Managers
                 Protein = request.Protein,
                 Calorie = request.Calorie,
                 Notes = request.Notes,
+                FavoriteMeal = null,
                 User = mealUser
             };
 
@@ -142,30 +143,23 @@ namespace NuVirtualApi.Domain.Managers
             return true;
         }
 
-        public bool UpdateIsFavoriteByMealId(int mealId)
+        public bool UpdateIsFavoriteByFavoriteMealId(int favoriteMealId)
         {
-            Meal meal = _databaseContext.Meals.Where(m => m.Id == mealId).FirstOrDefault();
+            FavoriteMeal favoriteMeals = _databaseContext.FavoriteMeals.Where(f => f.Id == favoriteMealId).FirstOrDefault();
+            List<Meal> mealsSavedWithIsFavorite = _databaseContext.Meals.Where(f => f.FavoriteMeal.Id == favoriteMealId).ToList();
 
-            if (meal == null)
+            if (mealsSavedWithIsFavorite.Count == 0)
             {
                 return false;
             }
 
-            meal = new Meal()
+            mealsSavedWithIsFavorite.ForEach(m =>
             {
-                Id = meal.Id,
-                Name = meal.Name,
-                Type = meal.Type,
-                IsFavorite = false,
-                Date = meal.Date,
-                Carbohydrate = meal.Carbohydrate,
-                Lipid = meal.Lipid,
-                Protein = meal.Protein,
-                Calorie = meal.Calorie,
-                Notes = meal.Notes
-            };
+                m.IsFavorite = false;
+            });
+
             _databaseContext.ChangeTracker.Clear();
-            _databaseContext.Meals.Update(meal);
+            _databaseContext.Meals.UpdateRange(mealsSavedWithIsFavorite);
             _databaseContext.SaveChanges();
 
             return true;

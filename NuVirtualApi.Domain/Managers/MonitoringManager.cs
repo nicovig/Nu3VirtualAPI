@@ -1,5 +1,6 @@
 ﻿using NuVirtualApi.Database;
 using NuVirtualApi.Database.EntityModels;
+using NuVirtualApi.Database.Enums;
 using NuVirtualApi.Domain.Interfaces.Business;
 using NuVirtualApi.Domain.Models.Request.Monitoring;
 using NuVirtualApi.Domain.Models.Response.Monitoring;
@@ -27,6 +28,8 @@ namespace NuVirtualApi.Domain.Managers
                                   && m.Date.Month == request.Date.Month
                                   && m.Date.Year == request.Date.Year).ToList();
 
+            List<NutritionGoal> sortedAndActiveNutritionGoalsDb = _databaseContext.NutritionGoals.Where(n => (n.User.Id == request.UserId) && n.IsActive).OrderBy(o => o.Order).ToList();
+
             int caloriesBurned = 0;
             int caloriesConsumed = 0;
             int carbohydrate = 0;
@@ -46,14 +49,53 @@ namespace NuVirtualApi.Domain.Managers
                 caloriesBurned += w.CaloriesBurned;
             });
 
-            return new MonitoringViewModel()
+            MonitoringViewModel returnValue = new MonitoringViewModel();
+            returnValue.NutritionGoalsMonitoring = new List<NutritionGoalMonitoringViewModel>();
+
+            sortedAndActiveNutritionGoalsDb.ForEach(s =>
             {
-                CaloriesBurned = caloriesBurned,
-                CaloriesConsumed = caloriesConsumed,
-                Carbohydrate = carbohydrate,
-                Lipid = lipid,
-                Protein = protein
-            };
+                switch (s.Type)
+                {
+                    case MacronutrientTypeEnum.Carbohydratre:
+                        returnValue.NutritionGoalsMonitoring.Add(new NutritionGoalMonitoringViewModel()
+                        {
+                            Type = MonitoringInformationTypeEnum.Carbohydrate,
+                            Value = carbohydrate
+                        });
+                        break;
+                    case MacronutrientTypeEnum.Lipid:
+                        returnValue.NutritionGoalsMonitoring.Add(new NutritionGoalMonitoringViewModel()
+                        {
+                            Type = MonitoringInformationTypeEnum.Lipid,
+                            Value = lipid
+                        });
+                        break;
+                    case MacronutrientTypeEnum.Protein:
+                        returnValue.NutritionGoalsMonitoring.Add(new NutritionGoalMonitoringViewModel()
+                        {
+                            Type = MonitoringInformationTypeEnum.Protein,
+                            Value = protein
+                        });
+                        break;
+                    case MacronutrientTypeEnum.Calorie:
+                        returnValue.NutritionGoalsMonitoring.AddRange(new List<NutritionGoalMonitoringViewModel>()
+                        {
+                            new NutritionGoalMonitoringViewModel()
+                        {
+                            Type = MonitoringInformationTypeEnum.CaloriesConsumed,
+                            Value = caloriesConsumed
+                        },
+                            new NutritionGoalMonitoringViewModel()
+                        {
+                            Type = MonitoringInformationTypeEnum.CaloriesBurned,
+                            Value = caloriesBurned
+                        }
+                        });
+                        break;
+                }
+            });
+
+            return returnValue;
         }
     }
 }

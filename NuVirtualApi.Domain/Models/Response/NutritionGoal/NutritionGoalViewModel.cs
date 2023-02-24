@@ -12,5 +12,6 @@ namespace NuVirtualApi.Domain.Models.Response.NutritionGoal
         public int AchievedValue { get; set; }
         public double AchievedRatio { get; set; }
         public int TotalValue { get; set; }
+        public bool IsActive { get; set; }
     }
 }

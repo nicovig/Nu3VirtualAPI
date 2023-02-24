@@ -66,11 +66,18 @@ namespace NuVirtualApi.Database.Migrations
                     Protein = table.Column<int>(type: "int", nullable: false),
                     Calorie = table.Column<int>(type: "int", nullable: false),
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    FavoriteMealId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Meals", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Meals_FavoriteMeals_FavoriteMealId",
+                        column: x => x.FavoriteMealId,
+                        principalTable: "FavoriteMeals",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Meals_Users_UserId",
                         column: x => x.UserId,
@@ -89,6 +96,7 @@ namespace NuVirtualApi.Database.Migrations
                     Type = table.Column<int>(type: "int", nullable: false),
                     Order = table.Column<int>(type: "int", nullable: false),
                     TotalValue = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -127,6 +135,11 @@ namespace NuVirtualApi.Database.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Meals_FavoriteMealId",
+                table: "Meals",
+                column: "FavoriteMealId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Meals_UserId",
                 table: "Meals",
                 column: "UserId");
@@ -145,9 +158,6 @@ namespace NuVirtualApi.Database.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FavoriteMeals");
-
-            migrationBuilder.DropTable(
                 name: "Meals");
 
             migrationBuilder.DropTable(
@@ -155,6 +165,9 @@ namespace NuVirtualApi.Database.Migrations
 
             migrationBuilder.DropTable(
                 name: "Workouts");
+
+            migrationBuilder.DropTable(
+                name: "FavoriteMeals");
 
             migrationBuilder.DropTable(
                 name: "Users");

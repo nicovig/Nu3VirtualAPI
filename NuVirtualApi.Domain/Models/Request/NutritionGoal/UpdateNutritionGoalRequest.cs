@@ -7,8 +7,8 @@ namespace NuVirtualApi.Domain.Models.Request.NutritionGoal
         [Required]
         public int Id { get; set; }
         [Required]
-        public int Order { get; set; }
-        [Required]
         public int TotalValue { get; set; }
+        [Required]
+        public bool IsActive { get; set; }
     }
 }

@@ -13,5 +13,6 @@ namespace NuVirtualApi.Database.EntityModels
 		public int Calorie { get; set; }
 		public int SourceMealId { get; set; }
 		public int UserId { get; set; }
+		public List<Meal> Meals { get; set; }
 	}
 }

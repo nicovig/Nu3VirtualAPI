@@ -1,11 +1,25 @@
-﻿namespace NuVirtualApi.Domain.Models.Response.Monitoring
+﻿using NuVirtualApi.Database.Enums;
+
+namespace NuVirtualApi.Domain.Models.Response.Monitoring
 {
     public class MonitoringViewModel
     {
-        public int Carbohydrate { get; set; }
-        public int Lipid { get; set; }
-        public int Protein { get; set; }
-        public int CaloriesConsumed { get; set; }
-        public int CaloriesBurned { get; set; }
+        public List<NutritionGoalMonitoringViewModel> NutritionGoalsMonitoring { get; set; }
+    }
+
+    public class NutritionGoalMonitoringViewModel
+    {
+        public MonitoringInformationTypeEnum Type { get; set; }
+        public int Value { get; set; }
+    }
+
+    public enum MonitoringInformationTypeEnum
+    {
+        CaloriesBurned,
+        CaloriesConsumed,
+        Carbohydrate,
+        Lipid,
+        Protein
     }
 }
+

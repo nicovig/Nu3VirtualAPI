@@ -30,6 +30,7 @@ namespace NuVirtualApi.Domain.Managers
                     Order = 1,
                     Type = MacronutrientTypeEnum.Carbohydratre,
                     TotalValue = request.Gender == GenderEnum.Male ? 300 : 220,
+                    IsActive = true,
                     User = userDb
                 },
                 new NutritionGoal()
@@ -38,6 +39,7 @@ namespace NuVirtualApi.Domain.Managers
                     Order = 2,
                     Type = MacronutrientTypeEnum.Lipid,
                     TotalValue = request.Gender == GenderEnum.Male ? 100 : 60,
+                    IsActive = true,
                     User = userDb
                 },
                 new NutritionGoal()
@@ -46,6 +48,7 @@ namespace NuVirtualApi.Domain.Managers
                     Order = 3,
                     Type = MacronutrientTypeEnum.Protein,
                     TotalValue = request.Gender == GenderEnum.Male ? 130 : 80,
+                    IsActive = true,
                     User = userDb
                 },
                 new NutritionGoal()
@@ -54,6 +57,7 @@ namespace NuVirtualApi.Domain.Managers
                     Order = 4,
                     Type = MacronutrientTypeEnum.Calorie,
                     TotalValue = request.Gender == GenderEnum.Male ? 2000 : 1700,
+                    IsActive = true,
                     User = userDb
                 },
             };
@@ -66,11 +70,11 @@ namespace NuVirtualApi.Domain.Managers
 
         public List<NutritionGoalViewModel> GetAllNutritionGoalsByUserId(int userId)
         {
-            var nutritionGoalsDb = _databaseContext.NutritionGoals.Where(n => n.User.Id == userId).ToList();
+            List<NutritionGoal> sortedNutritionGoalsDb = _databaseContext.NutritionGoals.Where(n => n.User.Id == userId).OrderBy(o => o.Order).ToList();
 
             List<NutritionGoalViewModel> result = new List<NutritionGoalViewModel>();
 
-            nutritionGoalsDb.ForEach(n =>
+            sortedNutritionGoalsDb.ForEach(n =>
             {
                 result.Add(new NutritionGoalViewModel() 
                 {
@@ -78,6 +82,7 @@ namespace NuVirtualApi.Domain.Managers
                     Name = n.Name,
                     Type = n.Type,
                     Order = n.Order,
+                    IsActive = n.IsActive,
                     TotalValue = n.TotalValue
                 });
             });
@@ -87,7 +92,7 @@ namespace NuVirtualApi.Domain.Managers
 
         public List<NutritionGoalViewModel> GetAllNutritionGoalsByUserIdAndDate(GetAllNutritionGoalsByUserIdAndDateRequest request, List<MealViewModel> mealsByDate)
         {
-            var nutritionGoalsDb = _databaseContext.NutritionGoals.Where(n => n.User.Id == request.UserId).ToList();
+            List<NutritionGoal> sortedAndActiveNutritionGoalsDb = _databaseContext.NutritionGoals.Where(n => (n.User.Id == request.UserId) && n.IsActive).OrderBy(o => o.Order).ToList();
 
             int allCarbohydratesByDay = 0;
             int allLipidsByDay = 0;
@@ -104,7 +109,7 @@ namespace NuVirtualApi.Domain.Managers
 
             List <NutritionGoalViewModel> result = new List<NutritionGoalViewModel>();
 
-            nutritionGoalsDb.ForEach(n =>
+            sortedAndActiveNutritionGoalsDb.ForEach(n =>
             {
                 int achievedValue = 0;
                 double achievedRatio = 0;
@@ -138,28 +143,34 @@ namespace NuVirtualApi.Domain.Managers
                     Date = request.Date,                    
                     AchievedValue = achievedValue,
                     AchievedRatio = achievedRatio,
-                    TotalValue = n.TotalValue
+                    TotalValue = n.TotalValue,
+                    IsActive = n.IsActive
                 });
             });
 
             return result;
         }
 
-        public bool UpdateNutritionGoal(UpdateNutritionGoalsRequest request)
+        public bool UpdateNutritionGoals(UpdateNutritionGoalsRequest request)
         {
             int changedNutritionGoals = 0;
-            
-            request.NutritionGoals.ForEach(nutritionGoal =>
+
+            for (int i = 0; i < request.NutritionGoals.Count; i++)
             {
-                var nutritionGoalDb = _databaseContext.NutritionGoals.Where(n => n.Id == nutritionGoal.Id).FirstOrDefault();
+                var nutritionGoalUpdated = request.NutritionGoals[i];
+                var nutritionGoalDb = _databaseContext.NutritionGoals.Where(n => n.Id == nutritionGoalUpdated.Id).FirstOrDefault();
 
-                nutritionGoalDb.Order = nutritionGoal.Order;
-                nutritionGoalDb.TotalValue = nutritionGoal.TotalValue;
+                if (nutritionGoalDb != null)
+                {
+                    nutritionGoalDb.IsActive = nutritionGoalUpdated.IsActive;
+                    nutritionGoalDb.TotalValue = nutritionGoalUpdated.TotalValue;
+                    nutritionGoalDb.Order = i + 1;
 
-                _databaseContext.ChangeTracker.Clear();
-                _databaseContext.NutritionGoals.Update(nutritionGoalDb);
-                changedNutritionGoals += _databaseContext.SaveChanges();
-            });
+                    _databaseContext.ChangeTracker.Clear();
+                    _databaseContext.NutritionGoals.Update(nutritionGoalDb);
+                    changedNutritionGoals += _databaseContext.SaveChanges();
+                }
+            }
 
             return changedNutritionGoals == request.NutritionGoals.Count ? true : false;
         }

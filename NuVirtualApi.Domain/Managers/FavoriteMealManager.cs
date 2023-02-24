@@ -38,6 +38,7 @@ namespace NuVirtualApi.Domain.Managers
                 Protein = favoriteMeal.Protein,
                 Calorie = favoriteMeal.Calorie,
                 Notes = "",
+                FavoriteMeal = favoriteMeal,
                 User = mealUser
             };
 
@@ -77,26 +78,19 @@ namespace NuVirtualApi.Domain.Managers
             return true;
         }
 
-        public int DeleteFavoriteMeal(int favoriteMealId)
+        public bool DeleteFavoriteMeal(int favoriteMealId)
         {
             FavoriteMeal favoriteMeal = _databaseContext.FavoriteMeals.Where(m => m.Id == favoriteMealId).FirstOrDefault();
-            Meal meal = _databaseContext.Meals.Where(m => m.Id == favoriteMeal.SourceMealId).FirstOrDefault();
-            User user = _databaseContext.Users.Where(u => u.Id == favoriteMeal.UserId).FirstOrDefault();
-
-            if (user == null || meal == null)
-            {
-                return 0;
-            }
 
             if (favoriteMeal == null)
             {
-                return 0;
+                return false;
             }
 
             _databaseContext.FavoriteMeals.Remove(favoriteMeal);
-            _databaseContext.SaveChanges();
+            int entityChanged = _databaseContext.SaveChanges();
 
-            return meal.Id;       
+            return entityChanged == 1;       
         }
 
         public List<FavoriteMealViewModel> GetAllFavoriteMealsByUserId(int userId)

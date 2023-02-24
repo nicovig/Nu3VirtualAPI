@@ -15,5 +15,6 @@ namespace NuVirtualApi.Database.EntityModels
 		public int Calorie { get; set; }
 		public string Notes { get; set; }
 		public User User { get; set; }
+		public FavoriteMeal? FavoriteMeal { get; set; }
 	}
 }

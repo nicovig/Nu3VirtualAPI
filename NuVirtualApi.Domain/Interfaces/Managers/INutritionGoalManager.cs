@@ -9,6 +9,6 @@ namespace NuVirtualApi.Domain.Interfaces.Managers
         bool CreateDefaultNutritionGoals(CreateDefaultNutritionGoalsRequest request);
         List<NutritionGoalViewModel> GetAllNutritionGoalsByUserId(int userId);
         List<NutritionGoalViewModel> GetAllNutritionGoalsByUserIdAndDate(GetAllNutritionGoalsByUserIdAndDateRequest request, List<MealViewModel> mealsByDate);
-        bool UpdateNutritionGoal(UpdateNutritionGoalsRequest request);
+        bool UpdateNutritionGoals(UpdateNutritionGoalsRequest request);
     }
 }

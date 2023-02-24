@@ -7,6 +7,6 @@ namespace NuVirtualApi.Domain.Interfaces.Business
     {
         List<NutritionGoalViewModel> GetAllNutritionGoalsByUserId(int userId);
         List<NutritionGoalViewModel> GetAllNutritionGoalsByUserIdAndDate(GetAllNutritionGoalsByUserIdAndDateRequest request);
-        bool UpdateNutritionGoal(UpdateNutritionGoalsRequest request);
+        bool UpdateNutritionGoals(UpdateNutritionGoalsRequest request);
     }
 }

@@ -7,7 +7,7 @@ namespace NuVirtualApi.Domain.Interfaces.Manager
     {
         public bool AddFavoriteMealToDailyMeals(AddFavoriteMealToDailyMealsRequest request);
         public bool CreateFavoriteMeal(int mealId, int userId);
-        public int DeleteFavoriteMeal(int favoriteMealId);
+        public bool DeleteFavoriteMeal(int favoriteMealId);
         List<FavoriteMealViewModel> GetAllFavoriteMealsByUserId(int userId);
         FavoriteMealViewModel GetFavoriteMealById(int favoriteMealId);
         bool UpdateFavoriteMeal(UpdateFavoriteMealRequest request);

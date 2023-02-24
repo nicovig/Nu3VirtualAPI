@@ -23,13 +23,13 @@ namespace NuVirtualApi.Domain.Business
 
         public bool DeleteFavoriteMeal(int favoriteMealId)
         {
-            int mealId = _favoriteMealManager.DeleteFavoriteMeal(favoriteMealId);
+            bool isMealsUpdated = _mealManager.UpdateIsFavoriteByFavoriteMealId(favoriteMealId);
 
-            if (mealId == null || mealId == 0) {
+            if (!isMealsUpdated) {
                 return false;
             }
 
-            return _mealManager.UpdateIsFavoriteByMealId(mealId);
+            return _favoriteMealManager.DeleteFavoriteMeal(favoriteMealId);
         }
 
         public List<FavoriteMealViewModel> GetAllFavoriteMealsByUserId(int userId)
