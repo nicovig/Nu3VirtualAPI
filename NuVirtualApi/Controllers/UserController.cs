@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NuVirtualApi.Domain.Interfaces.Business;
 using NuVirtualApi.Domain.Models.Request.User;
 using NuVirtualApi.Domain.Models.Response.User;
@@ -15,6 +16,7 @@ public class UserController : Controller
     }
 
     [HttpPatch]
+    [Authorize]
     [Route("password")]
     public ActionResult<bool> ChangePassword([FromHeader] string userId, [FromHeader] string oldPassword, [FromHeader] string newPassword)
     {
@@ -30,12 +32,13 @@ public class UserController : Controller
 
     [HttpGet]
     [Route("email")]
-    public ActionResult<bool> IsEmailUsable([FromHeader] string email)
+    public ActionResult<bool> IsUserExistByMail([FromHeader] string email)
     {
-        return _userBusiness.IsEmailUsable(email);
+        return _userBusiness.IsUserExistByMail(email);
     }
 
     [HttpPut]
+    [Authorize]
     public ActionResult<UpdateUserResponse> UpdateUser([FromBody] UpdateUserRequest request, [FromHeader] string password)
     {
         request.Password = password;

@@ -9,6 +9,7 @@ using System.Text;
 using NuVirtualApi.Domain.Managers;
 using NuVirtualApi.Domain.Interfaces.Managers;
 using NuVirtualApi.Domain.Interfaces.Manager;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,35 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "NuVirtualApi", Version = "v1" });
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        Description = "Ajouter le token ainsi : \"Bearer xxxx\" où xxxx est votre token d'authentification",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                },
+                new string[] {}
+        }
+    });
+});
 
 //Database dependency injections
 builder.Services.AddDbContext<DatabaseContext>(
@@ -45,6 +74,7 @@ builder.Services.AddScoped<IWorkoutManager, WorkoutManager>();
 builder.Services.AddScoped<IWorkoutBusiness, WorkoutBusiness>();
 
 //configuration de l'authentification et du format de token
+//https://www.attineos.com/blog/actu/creer-une-api-en-net-6
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 

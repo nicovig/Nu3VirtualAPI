@@ -4,6 +4,7 @@ using NuVirtualApi.Domain.Models.Config;
 using NuVirtualApi.Domain.Tools;
 using Microsoft.Extensions.Options;
 using NuVirtualApi.Domain.Models.Request.Authentication;
+using NuVirtualApi.Domain.Models.Response.Authentication;
 
 namespace NuVirtualApi.Domain.Business
 {
@@ -30,6 +31,36 @@ namespace NuVirtualApi.Domain.Business
                 };
             }
             return null;
+        }
+
+        public ResetPasswordResponse ResetPassword(string email)
+        {
+            ResetPasswordResponse response = new ResetPasswordResponse
+            {
+                IsEmailSent = false,
+                IsPasswordReset = false,
+                IsUserExist = false
+            };
+         
+            bool IsUserExist = !_userManager.IsUserExistByMail(email);
+
+            if (!IsUserExist)
+            {
+                return response;
+            }
+
+            response.IsUserExist = true;
+
+            string generatedPassword = PasswordTool.GenerateRandomPassword();
+
+            response.IsPasswordReset = _userManager.SavePasswordByEmail(generatedPassword, email);
+
+            if (response.IsPasswordReset)
+            {
+                response.IsEmailSent = EmailTools.SendNewPasswordEmail(generatedPassword);
+            }
+            
+            return response;
         }
     }
 }

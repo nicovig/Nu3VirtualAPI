@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NuVirtualApi.Domain.Interfaces.Business;
 using NuVirtualApi.Domain.Models.Request.Workout;
 using NuVirtualApi.Domain.Models.Response.Workout;
 
 [ApiController]
+[Authorize]
 [Route("[controller]")]
 public class WorkoutController : Controller
 {

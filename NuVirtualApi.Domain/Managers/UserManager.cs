@@ -117,10 +117,23 @@ namespace NuVirtualApi.Domain.Managers
             };
         }
 
-        public bool IsEmailUsable(string email)
+        public bool IsUserExistByMail(string email)
         {
             var users = _databaseContext.Users.Where(u => u.Email == email);
             return users.Count() == 0;
+        }
+
+        public bool SavePasswordByEmail(string newPassword, string email)
+        {
+            User user = _databaseContext.Users.Where(u => u.Email == email).FirstOrDefault();
+
+            user.Password = PasswordTool.HashPassword(newPassword);
+
+            _databaseContext.ChangeTracker.Clear();
+            _databaseContext.Update(user);
+            _databaseContext.SaveChanges();
+
+            return true;
         }
 
         public UpdateUserResponse UpdateUser(UpdateUserRequest request)

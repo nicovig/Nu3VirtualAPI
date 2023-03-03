@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NuVirtualApi.Domain.Interfaces.Business;
 using NuVirtualApi.Domain.Models.Request.FavoriteMeal;
 using NuVirtualApi.Domain.Models.Response.FavoriteMeal;
 
 [ApiController]
+[Authorize]
 [Route("[controller]")]
 public class FavoriteMealController : Controller
 {

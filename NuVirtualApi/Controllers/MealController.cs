@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NuVirtualApi.Domain.Interfaces.Business;
 using NuVirtualApi.Domain.Models.Request.Meal;
 using NuVirtualApi.Domain.Models.Response.Meal;
 
 [ApiController]
+[Authorize]
 [Route("[controller]")]
 public class MealController : Controller
 {
