@@ -41,17 +41,4 @@ public class FavoriteMealController : Controller
     {
         return _favoriteMealBusiness.GetAllFavoriteMealsByUserId(userId);
     }
-
-    [HttpGet()]
-    [Route("favoriteMeal/{favoriteMealId}")]
-    public ActionResult<FavoriteMealViewModel> GetFavoriteMealById(int favoriteMealId)
-    {
-        return _favoriteMealBusiness.GetFavoriteMealById(favoriteMealId);
-    }
-
-    [HttpPut]
-    public ActionResult<bool> UpdateFavoriteMeal([FromBody] UpdateFavoriteMealRequest request)
-    {
-        return _favoriteMealBusiness.UpdateFavoriteMeal(request);
-    }
 }

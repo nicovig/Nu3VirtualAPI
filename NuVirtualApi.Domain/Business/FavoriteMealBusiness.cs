@@ -36,15 +36,5 @@ namespace NuVirtualApi.Domain.Business
         {
             return _favoriteMealManager.GetAllFavoriteMealsByUserId(userId);
         }
-
-        public FavoriteMealViewModel GetFavoriteMealById(int favoriteMealId)
-        {
-            return _favoriteMealManager.GetFavoriteMealById(favoriteMealId);
-        }
-
-        public bool UpdateFavoriteMeal(UpdateFavoriteMealRequest request)
-        {
-            return _favoriteMealManager.UpdateFavoriteMeal(request);
-        }
     }
 }

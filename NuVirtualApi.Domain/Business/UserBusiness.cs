@@ -40,6 +40,11 @@ namespace NuVirtualApi.Domain.Business
             return createUserResponse;
         }
 
+        public bool IsUserExistByLogin(string login)
+        {
+            return _userManager.IsUserExistByLogin(login);
+        }
+
         public bool IsUserExistByMail(string email)
         {
             return _userManager.IsUserExistByMail(email);

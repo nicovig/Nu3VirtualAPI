@@ -35,7 +35,7 @@ namespace NuVirtualApi.Domain.Business
 
         public ResetPasswordResponse ResetPassword(string email)
         {
-            ResetPasswordResponse response = new ResetPasswordResponse
+            ResetPasswordResponse response = new()
             {
                 IsEmailSent = false,
                 IsPasswordReset = false,
@@ -53,13 +53,13 @@ namespace NuVirtualApi.Domain.Business
 
             string generatedPassword = PasswordTool.GenerateRandomPassword();
 
-            response.IsPasswordReset = _userManager.SavePasswordByEmail(generatedPassword, email);
+            response.IsEmailSent = EmailTools.SendNewPasswordEmail(generatedPassword);
 
-            if (response.IsPasswordReset)
+            if (response.IsEmailSent)
             {
-                response.IsEmailSent = EmailTools.SendNewPasswordEmail(generatedPassword);
-            }
-            
+                response.IsPasswordReset = _userManager.SavePasswordByEmail(generatedPassword, email);
+            }            
+
             return response;
         }
     }

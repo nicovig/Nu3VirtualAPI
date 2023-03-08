@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NuVirtualApi.Domain.Models.Request.Authentication;
 using NuVirtualApi.Domain.Models.Response.Authentication;
-using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("[controller]")]

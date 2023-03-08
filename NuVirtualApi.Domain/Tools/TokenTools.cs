@@ -7,6 +7,7 @@ using System.Text;
 
 namespace NuVirtualApi.Domain.Tools
 {
+
     public static class TokenTool
     {
         public static string GenerateJwt(UserModel user, JwtSettings jwtSettings)

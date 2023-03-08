@@ -117,6 +117,12 @@ namespace NuVirtualApi.Domain.Managers
             };
         }
 
+        public bool IsUserExistByLogin(string login)
+        {
+            var users = _databaseContext.Users.Where(u => u.Pseudo == login);
+            return users.Count() == 0;
+        }
+
         public bool IsUserExistByMail(string email)
         {
             var users = _databaseContext.Users.Where(u => u.Email == email);
@@ -169,7 +175,7 @@ namespace NuVirtualApi.Domain.Managers
             _databaseContext.Update(user);
             _databaseContext.SaveChanges();
 
-            UserModel userToResponse = new UserModel()
+            return new UpdateUserResponse()
             {
                 Id = user.Id,
                 Pseudo = user.Pseudo,
@@ -182,12 +188,6 @@ namespace NuVirtualApi.Domain.Managers
                 Email = user.Email,
                 Password = user.Password,
                 IsAdmin = false
-            };
-
-            return new UpdateUserResponse()
-            {
-                Token = TokenTool.GenerateJwt(userToResponse, _jwtSettings.Value),
-                User = userToResponse
             };
         }
     }

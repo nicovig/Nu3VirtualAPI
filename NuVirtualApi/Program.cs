@@ -13,8 +13,9 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 
+// Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -29,7 +30,7 @@ builder.Services.AddSwaggerGen(c =>
         Description = "Ajouter le token ainsi : \"Bearer xxxx\" où xxxx est votre token d'authentification",
         Name = "Authorization",
         In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
+        Type = SecuritySchemeType.Http,
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -76,17 +77,20 @@ builder.Services.AddScoped<IWorkoutBusiness, WorkoutBusiness>();
 //configuration de l'authentification et du format de token
 //https://www.attineos.com/blog/actu/creer-une-api-en-net-6
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
-builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+
 
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
 })
+
 .AddJwtBearer(options =>
 {
     options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidIssuer = jwtSettings.Issuer,

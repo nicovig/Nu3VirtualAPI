@@ -31,6 +31,13 @@ public class UserController : Controller
     }
 
     [HttpGet]
+    [Route("login")]
+    public ActionResult<bool> IsUserExistByLogin([FromHeader] string login)
+    {
+        return _userBusiness.IsUserExistByMail(login);
+    }
+
+    [HttpGet]
     [Route("email")]
     public ActionResult<bool> IsUserExistByMail([FromHeader] string email)
     {

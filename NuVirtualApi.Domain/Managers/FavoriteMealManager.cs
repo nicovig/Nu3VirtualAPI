@@ -27,7 +27,7 @@ namespace NuVirtualApi.Domain.Managers
                 return false;
             }
 
-            Meal newMeal = new Meal()
+            Meal newMeal = new()
             {
                 Name = favoriteMeal.Name,
                 Type = favoriteMeal.Type,
@@ -45,7 +45,7 @@ namespace NuVirtualApi.Domain.Managers
             _databaseContext.Meals.Add(newMeal);
             int result = _databaseContext.SaveChanges();
 
-            return result == 1 ? true : false;
+            return result == 1;
         }
 
         public bool CreateFavoriteMeal(int mealId, int userId)
@@ -59,7 +59,7 @@ namespace NuVirtualApi.Domain.Managers
 
             if (meal.IsFavorite)
             {
-                FavoriteMeal newFavoriteMeal = new FavoriteMeal()
+                FavoriteMeal newFavoriteMeal = new()
                 {
                     Name = meal.Name,
                     Type = meal.Type,
@@ -97,7 +97,7 @@ namespace NuVirtualApi.Domain.Managers
         {
             List<FavoriteMeal> favoriteMeals = _databaseContext.FavoriteMeals.Where(m => m.UserId == userId).ToList();
 
-            List<FavoriteMealViewModel> favoriteMealViewModels = new List<FavoriteMealViewModel>();
+            List<FavoriteMealViewModel> favoriteMealViewModels = new();
 
             favoriteMeals.ForEach(favoriteMeal =>
             {
@@ -116,58 +116,6 @@ namespace NuVirtualApi.Domain.Managers
             });
 
             return favoriteMealViewModels;
-        }
-
-        public FavoriteMealViewModel GetFavoriteMealById(int favoriteMealId)
-        {
-            FavoriteMeal favoriteMeal = _databaseContext.FavoriteMeals.Where(m => m.Id == favoriteMealId).FirstOrDefault();
-
-            if (favoriteMeal != null)
-            {
-                return new FavoriteMealViewModel()
-                {
-                    Id = favoriteMeal.Id,
-                    Name = favoriteMeal.Name,
-                    Type = favoriteMeal.Type,
-                    Carbohydrate = favoriteMeal.Carbohydrate,
-                    Lipid = favoriteMeal.Lipid,
-                    Protein = favoriteMeal.Protein,
-                    Calorie = favoriteMeal.Calorie,
-                    MealId = favoriteMeal.SourceMealId,
-                    UserId = favoriteMeal.UserId
-                };
-            }
-
-            return null;
-        }
-
-        public bool UpdateFavoriteMeal(UpdateFavoriteMealRequest request)
-        {
-            User user = _databaseContext.Users.Where(u => u.Id == request.UserId).FirstOrDefault();
-            FavoriteMeal favoriteMeal = _databaseContext.FavoriteMeals.Where(m => m.Id == request.Id).FirstOrDefault();
-
-            if (user == null || favoriteMeal == null)
-            {
-                return false;
-            }
-
-            favoriteMeal = new FavoriteMeal()
-            {
-                Id = favoriteMeal.Id,
-                Name = request.Name,
-                Type = request.Type,
-                Carbohydrate = request.Carbohydrate,
-                Lipid = request.Lipid,
-                Protein = request.Protein,
-                Calorie = request.Calorie,
-                SourceMealId = request.MealId,
-                UserId = user.Id
-            };
-            _databaseContext.ChangeTracker.Clear();
-            _databaseContext.FavoriteMeals.Update(favoriteMeal);
-            _databaseContext.SaveChanges();
-
-            return true;
         }
 
         public bool UpdateFavoriteMealByMealId(int mealId, int userId) //si encore favoris ou pas (se baser sur meal)
