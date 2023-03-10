@@ -31,7 +31,7 @@ namespace NuVirtualApi.Domain.Managers
             {
                 Name = favoriteMeal.Name,
                 Type = favoriteMeal.Type,
-                IsFavorite = true,
+                IsFavorite = false,
                 Date = request.Date,
                 Carbohydrate = favoriteMeal.Carbohydrate,
                 Lipid = favoriteMeal.Lipid,

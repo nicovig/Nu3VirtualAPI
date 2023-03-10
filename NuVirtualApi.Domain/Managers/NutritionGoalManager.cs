@@ -118,19 +118,35 @@ namespace NuVirtualApi.Domain.Managers
                 {
                     case MacronutrientTypeEnum.Carbohydratre:
                         achievedValue = allCarbohydratesByDay;
-                        achievedRatio = (double)allCarbohydratesByDay / n.TotalValue;
+                        if (n.TotalValue > 0)
+                        {
+                            achievedRatio = (double)allCarbohydratesByDay / n.TotalValue;
+                        }
+                        else achievedRatio = 0;
                         break;
                     case MacronutrientTypeEnum.Lipid:
                         achievedValue = allLipidsByDay;
-                        achievedRatio = (double)allLipidsByDay / n.TotalValue;
+                        if (n.TotalValue > 0)
+                        {
+                            achievedRatio = (double)allLipidsByDay / n.TotalValue;
+                        }
+                        else achievedRatio = 0;
                         break;
                     case MacronutrientTypeEnum.Protein:
                         achievedValue = allProteinsByDay;
-                        achievedRatio = (double)allProteinsByDay / n.TotalValue;
+                        if (n.TotalValue > 0)
+                        {
+                            achievedRatio = (double)allProteinsByDay / n.TotalValue;
+                        }
+                        else achievedRatio = 0;
                         break;
                     case MacronutrientTypeEnum.Calorie:
                         achievedValue = allCaloriesByDay;
-                        achievedRatio = (double)allCaloriesByDay / n.TotalValue;
+                        if (n.TotalValue > 0)
+                        {
+                            achievedRatio = (double)allCaloriesByDay / n.TotalValue;
+                        }
+                        else achievedRatio = 0;
                         break;
                 }
 

@@ -145,8 +145,8 @@ namespace NuVirtualApi.Domain.Managers
 
         public bool UpdateIsFavoriteByFavoriteMealId(int favoriteMealId)
         {
-            FavoriteMeal favoriteMeals = _databaseContext.FavoriteMeals.Where(f => f.Id == favoriteMealId).FirstOrDefault();
-            List<Meal> mealsSavedWithIsFavorite = _databaseContext.Meals.Where(f => f.FavoriteMeal.Id == favoriteMealId).ToList();
+            FavoriteMeal favoriteMeal = _databaseContext.FavoriteMeals.Where(f => f.Id == favoriteMealId).FirstOrDefault();
+            List<Meal> mealsSavedWithIsFavorite = _databaseContext.Meals.Where(m => m.Id == favoriteMeal.SourceMealId).ToList();
 
             if (mealsSavedWithIsFavorite.Count == 0)
             {

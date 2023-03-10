@@ -42,9 +42,9 @@ namespace NuVirtualApi.Domain.Business
                 IsUserExist = false
             };
          
-            bool IsUserExist = !_userManager.IsUserExistByMail(email);
+            bool isUserExist = _userManager.IsUserExistByMail(email);
 
-            if (!IsUserExist)
+            if (!isUserExist)
             {
                 return response;
             }

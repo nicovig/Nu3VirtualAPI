@@ -119,14 +119,14 @@ namespace NuVirtualApi.Domain.Managers
 
         public bool IsUserExistByLogin(string login)
         {
-            var users = _databaseContext.Users.Where(u => u.Pseudo == login);
-            return users.Count() == 0;
+            var users = _databaseContext.Users.Where(u => u.Pseudo == login).ToList();
+            return users.Count() > 0;
         }
 
         public bool IsUserExistByMail(string email)
         {
-            var users = _databaseContext.Users.Where(u => u.Email == email);
-            return users.Count() == 0;
+            var users = _databaseContext.Users.Where(u => u.Email == email).ToList();
+            return users.Count() > 0;
         }
 
         public bool SavePasswordByEmail(string newPassword, string email)
