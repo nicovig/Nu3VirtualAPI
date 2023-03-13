@@ -30,6 +30,14 @@ public class UserController : Controller
         return _userBusiness.CreateUser(request);
     }
 
+    [HttpPost]
+    [Route("Test")]
+    public void Test([FromBody] CreateUserRequest request, [FromHeader] string password)
+    {
+        request.Password = password;
+        //return _userBusiness.CreateUser(request);
+    }
+
     [HttpGet]
     [Route("login")]
     public ActionResult<bool> IsUserExistByLogin([FromHeader] string login)
