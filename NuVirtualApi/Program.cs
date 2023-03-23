@@ -51,7 +51,7 @@ builder.Services.AddSwaggerGen(c =>
 
 //Database dependency injections
 builder.Services.AddDbContext<DatabaseContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("NuVirtualApiCnxStr")));
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection_production")));
 
 //Others dependency injections
 builder.Services.AddScoped<IAuthenticationBusiness, AuthenticationBusiness>();
