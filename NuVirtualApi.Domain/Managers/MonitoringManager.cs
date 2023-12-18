@@ -41,7 +41,7 @@ namespace NuVirtualApi.Domain.Managers
                 caloriesConsumed += m.Calorie;
                 carbohydrate += m.Carbohydrate;
                 lipid += m.Lipid;
-                protein += m.Lipid;
+                protein += m.Protein;
             });
 
             workouts.ForEach(w =>

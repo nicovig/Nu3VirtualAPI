@@ -51,7 +51,8 @@ builder.Services.AddSwaggerGen(c =>
 
 //Database dependency injections
 builder.Services.AddDbContext<DatabaseContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection_production")));
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection_local")));
+    //options => options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection_production")));
 
 //Others dependency injections
 builder.Services.AddScoped<IAuthenticationBusiness, AuthenticationBusiness>();
